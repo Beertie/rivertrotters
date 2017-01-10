@@ -43,10 +43,12 @@ class GamesController extends AppController
         $this->set('_serialize', ['games', 'filter', 'options']);
     }
 
-    public function week(){
+    public function week($week_number = 2){
 
-        $games = file_get_contents('http://db.basketball.nl/db/json/wedstrijd.pl?seizoen=2017&clb_ID=81');
+        $games = file_get_contents('http://db.basketball.nl/db/json/wedstrijd.pl?clb_ID=81');
         $games = json_decode($games);
+
+        $date = $this->getStartAndEndDate(($week_number -1), 2017);
 
         $week = [];
         foreach ($games->wedstrijden as $game){
@@ -55,18 +57,29 @@ class GamesController extends AppController
             }
 
             $unix_time = strtotime($game->datum);
-            //1484179200
-            //1484438400
 
-            if($unix_time > 1484179200 AND $unix_time < 1484438400){
+            if($unix_time > strtotime($date[0]) AND $unix_time < strtotime($date[1])){
                 $week[] = $game;
             }
 
         }
 
+        $week_numbers = [2,3,4,5,6,7,8,9,10];
 
-        $this->set(compact('week'));
+        $this->set(compact('week', 'week_numbers'));
         $this->set('_serialize', ['week']);
+    }
+
+    public function getStartAndEndDate($week, $year)
+    {
+
+        $time = strtotime("1 January $year", time());
+        $day = date('w', $time);
+        $time += ((7*$week)+1-$day)*24*3600;
+        $return[0] = date('Y-n-j', $time);
+        $time += 6*24*3600;
+        $return[1] = date('Y-n-j', $time);
+        return $return;
     }
 
 

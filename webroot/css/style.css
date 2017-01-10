@@ -78,7 +78,7 @@ a.btn.delete:hover,
 #page-wrappert { padding-top: 50px; min-height: 100%!important; -webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s; background-color: #f3f3f4; }
 #page-wrappert.nav-closed { margin: 0 0 0 50px!important; -webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s;}
 
-#nav-wrappert { margin: 0 0 0 250px; height: 50px; padding: 0 30px;-webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s; }
+#nav-wrappert { margin: 0 0 0 250px; height: 70px; padding: 0 30px;-webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s; }
 #nav-wrappert.nav-closed { margin: 0 0 0 50px!important; -webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s;}
 
 .container-content { padding-top: 50px; width: 100%; }
@@ -99,7 +99,8 @@ a.btn.delete:hover,
 .navbar-default .navbar-brand:focus, 
 .navbar-default .navbar-brand:hover { background: #ECBC2E;}
 .navbar-brand .helper { display: inline-block; height: 100%; vertical-align: middle; width: 0px; }
-.navbar-brand img { margin-left: 0; vertical-align: middle; height: auto; max-height: 25px!important; margin-top: 12px; max-width: 100%; display: inline; -webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s; }
+
+.navbar-brand img { margin-left: 0; vertical-align: middle; height: auto; max-height: 50px!important; margin-top: 12px; max-width: 100%; display: inline; -webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s; }
 .navbar-brand img.small { position: absolute; right: -50px; top: 50%; width: 50px; height: 50px; margin-top: -25px; max-width: 100%; }
 .navbar-brand .title { margin-left: 0; color: white; font-size: 20px; -webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s; }
 
@@ -419,4 +420,9 @@ fieldset { width: 100%; float: left; }
 .game {
     min-height:150px !important;
     border: 1px;
+    background-color: #FFFFFF;
+    margin-bottom: 20px;
+    align-items: center;
+    display: flex;
+    border-radius: 15px;
 }

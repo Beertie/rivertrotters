@@ -26,7 +26,7 @@ html, body {
     padding-bottom: 100px;}
 #wrapper.nav-closed { margin-left: 50px; padding-right: 100px; -webkit-transition: all .2s, -webkit-transform .2s;  transition: all .2s, transform .2s; }
 
-.wrap { margin-top: 50px; }
+.wrap { margin-top: 70px; }
 
 #wrappert {
     width: 100%;
