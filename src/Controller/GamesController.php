@@ -26,6 +26,9 @@ class GamesController extends AppController
      * Index method
      *
      * @return \Cake\Network\Response|null
+     *
+     * date      : alleen wedstrijden ophalen die bijgewerkt zijn na deze datum.
+    datum moet in formaat yyyy-mm-dd HH:MM:SS zijn
      */
     public function index()
     {
@@ -38,6 +41,32 @@ class GamesController extends AppController
 
         $this->set(compact('games', 'filter', 'options'));
         $this->set('_serialize', ['games', 'filter', 'options']);
+    }
+
+    public function week(){
+
+        $games = file_get_contents('http://db.basketball.nl/db/json/wedstrijd.pl?seizoen=2017&clb_ID=81');
+        $games = json_decode($games);
+
+        $week = [];
+        foreach ($games->wedstrijden as $game){
+            if($game->datum == null){
+                continue;
+            }
+
+            $unix_time = strtotime($game->datum);
+            //1484179200
+            //1484438400
+
+            if($unix_time > 1484179200 AND $unix_time < 1484438400){
+                $week[] = $game;
+            }
+
+        }
+
+
+        $this->set(compact('week'));
+        $this->set('_serialize', ['week']);
     }
 
 

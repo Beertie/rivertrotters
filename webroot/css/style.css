@@ -130,7 +130,7 @@ a.btn.delete:hover,
 /*************************************** 
 	Navigation
 ***************************************/
-.navbar-static-top { height: 50px; position: absolute; left: 0; top: 0; width: 100%; background: white;  }
+.navbar-static-top { height: 70px; position: absolute; left: 0; top: 0; width: 100%; background: white;  }
 
 .navbar-default { background-color: #ECBC2E;}
 .navbar-default .navbar-collapse, 
@@ -414,4 +414,9 @@ fieldset { width: 100%; float: left; }
 	.navbar-default .navbar-toggle .icon-bar { background-color: white; }
 	.sidebar-nav ul li , .sidebar-nav ul li a:link, .sidebar-nav ul li a:active, .sidebar-nav ul li a:visited { width: 100%; }
 	
+}
+
+.game {
+    min-height:150px !important;
+    border: 1px;
 }
