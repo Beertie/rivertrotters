@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Lib\Nbb\Nbb;
 
 /**
  * Games Controller
@@ -38,6 +39,11 @@ class GamesController extends AppController
         $filter = ['h1', 'h2', 'h3', 'd1'];
 
         $options = [ 1 => 'Thuis', 2 => 'Uit' ];
+
+        $nbb = new Nbb();
+        $week_games = $nbb->getThisWeek(true);
+        debug($week_games);
+        exit;
 
         $this->set(compact('games', 'filter', 'options'));
         $this->set('_serialize', ['games', 'filter', 'options']);

@@ -4,12 +4,14 @@ namespace App\Lib\Nbb;
 
 class Nbb{
 
+    public $club_id;
 
     public $url = "http://db.basketball.nl/db/json/wedstrijd.pl";
 
     function __construct($club_id = 81)
     {
         $this->url .= "?clb_ID=$club_id";
+        $this->club_id = $club_id;
     }
 
     public function getAllGames(){
@@ -21,28 +23,43 @@ class Nbb{
 
     }
 
-    public function getThisWeek($week_number = null){
+    public function getThisWeek($home_game_only = false, $week_number = null){
         $games = $this->getAllGames();
 
+        //If no week number set get current number
         if($week_number == null ){
             $week_number = $this->getWeekNumber();
         }
 
+        //Get dates of the weeekend for the week number
         $date = $this->getStartAndEndDate(($week_number -1), 2017);
 
         $week = [];
+
+        //For al games of the json file
         foreach ($games->wedstrijden as $game){
+
+            //If no date for game skip it
             if($game->datum == null){
                 continue;
             }
 
+            //Set time of game to unix time
             $unix_time = strtotime($game->datum);
 
+            //Check is time is the range
             if($unix_time > strtotime($date[0]) AND $unix_time < strtotime($date[1])){
+
+                //If only want home games skip all others
+                if($home_game_only AND $game->thuis_club_id != $this->club_id){
+                    continue;
+                }
                 $week[] = $game;
             }
 
         }
+
+        return $week;
 
     }
 
@@ -64,9 +81,11 @@ class Nbb{
     }
 
     public function getWeekNumber(){
-        $ddate = time();
-        $date = new \DateTime($ddate);
+        $time = date("Y-m-d",time());
+        $date = new \DateTime($time);
         $week = $date->format("W");
+
+        debug($week);
         return $week;
     }
 
