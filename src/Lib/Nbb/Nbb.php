@@ -67,6 +67,40 @@ class Nbb{
 
     }
 
+    /**
+     *
+     *
+     * @param $comp_id
+     */
+    public function getStatsComp($comp_id){
+        $url = "http://db.basketball.nl/db/json/stand.pl?cmp_ID=$comp_id";
+
+        $stats = file_get_contents($url);
+        $stats = json_decode($stats);
+
+        /**
+         * 	(int) 0 => object(stdClass) {
+        afko => 'BV Voorne HS 1'
+        ID => '235'
+        status => 'Actief'
+        rang => '1'
+        gespeeld => '10'
+        percentage => '90.0'
+        tegenscore => '480'
+        punten => '18'
+        eigenscore => '714'
+        datum => '2016-12-21'
+        team => 'BV Voorne Heren 1'
+        saldo => (int) 234
+        positie => '1'
+        },
+         */
+
+
+        debug($stats);
+
+
+    }
 
     public function getStartAndEndDate($week, $year)
     {
@@ -88,6 +122,8 @@ class Nbb{
         debug($week);
         return $week;
     }
+
+
 
 
 }

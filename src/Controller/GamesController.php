@@ -41,11 +41,21 @@ class GamesController extends AppController
         $options = [ 1 => 'Thuis', 2 => 'Uit' ];
 
         $nbb = new Nbb();
-        $week_games = $nbb->getThisWeek(true);
-        debug($week_games);
-        exit;
+        $home_games_this_weekends = $nbb->getThisWeek(true);
 
-        $this->set(compact('games', 'filter', 'options'));
+        //debug($home_games_this_weekends);
+
+        $home_games_this_weekend = $home_games_this_weekends;
+        foreach ($home_games_this_weekends as $game){
+
+            //debug($game);
+            //$nbb->getStatsComp($game->cmp_id);
+
+        }
+
+        //exit;
+
+        $this->set(compact('games', 'filter', 'options', 'home_games_this_weekend'));
         $this->set('_serialize', ['games', 'filter', 'options']);
     }
 
