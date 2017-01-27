@@ -97,7 +97,7 @@ class Nbb{
          */
 
 
-        debug($stats);
+       // debug($stats);
 
 
     }
@@ -119,7 +119,7 @@ class Nbb{
         $date = new \DateTime($time);
         $week = $date->format("W");
 
-        debug($week);
+        //debug($week);
         return $week;
     }
 

@@ -98,5 +98,8 @@ class GamesController extends AppController
         return $return;
     }
 
+    public function test(){
+
+    }
 
 }

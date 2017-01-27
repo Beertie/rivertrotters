@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 home-side-top-2">
-                <h2>Week 2</h2>
+                    <h2>Week 2</h2>
                 </div>
 
 
@@ -68,7 +68,7 @@
                             ?>
                         </div>
                     </div>
-                <?php
+                    <?php
                 }
                 ?>
 
