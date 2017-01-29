@@ -54,8 +54,8 @@
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
-<body class="<?php echo ($this->fetch('bodyClass') ? : 'default'); ?>">
-<div id="wrapper" class="<?php echo ($_expandMenu ? : "nav-closed"); ?>">
+<body class="default">
+<div id="wrapper" class="nav-closed">
 
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
 
@@ -67,8 +67,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="<?php echo $this->Url->build(['controller' => 'Pages', 'action' => 'home']); ?>"><img src="<?php echo $this->Url->build('/img/swoop-logo-white.png'); ?>"> <span class='env env-dev'>Staging</span>
-
+            <a class="navbar-brand" href="<?php echo $this->Url->build(['controller' => 'Pages', 'action' => 'home']); ?>"><h2>Admin</h2><span class='env env-dev'>Staging</span>
 
             </a>
 
@@ -78,7 +77,7 @@
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <?php echo $authUser->name; ?> <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i> Admin <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
@@ -92,7 +91,7 @@
 
         </ul>
 
-        <div class="navbar-default sidebar <?php echo ($_expandMenu ? : "closed"); ?>" role="navigation">
+        <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
 
