@@ -42,6 +42,10 @@ use Cake\Routing\Route\DashedRoute;
  *
  */
 Router::defaultRouteClass(DashedRoute::class);
+Router::prefix('admin', function (RouteBuilder $routes) {
+
+    $routes->fallbacks(DashedRoute::class);
+});
 
 Router::scope('/', function (RouteBuilder $routes) {
     /**
