@@ -4,16 +4,37 @@ namespace App\Lib\Nbb;
 
 class Nbb{
 
+    //Club id fo use for one club
     public $club_id;
 
+    //TODO remove option of url
+    //Set global api url
     public $url = "http://db.basketball.nl/db/json/wedstrijd.pl";
 
+    /**
+     * Nbb constructor.
+     *
+     * @param int $club_id update club id
+     */
     function __construct($club_id = 81)
     {
+        //Add id to global url
         $this->url .= "?clb_ID=$club_id";
+
+        //Update global url
         $this->club_id = $club_id;
     }
 
+    /**
+     * Get all games of one seseon of teh select club sort bij date
+     *
+     * TODO
+     * Add filters for teams
+     * Add sort options for date
+     * Add filters for played games
+     *
+     * @return mixed|string
+     */
     public function getAllGames(){
 
         $games = file_get_contents($this->url);
@@ -23,7 +44,18 @@ class Nbb{
 
     }
 
+    /**
+     *
+     * Get all the games for the week for club
+     *
+     *
+     * @param bool $home_game_only
+     * @param null $week_number
+     * @return array
+     */
     public function getThisWeek($home_game_only = false, $week_number = null){
+
+       //Get all games json
         $games = $this->getAllGames();
 
         //If no week number set get current number
@@ -34,6 +66,7 @@ class Nbb{
         //Get dates of the weeekend for the week number
         $date = $this->getStartAndEndDate(($week_number -1), 2017);
 
+        //Define week array
         $week = [];
 
         //For al games of the json file
@@ -63,7 +96,45 @@ class Nbb{
 
     }
 
+    /**
+     * Get game for competitons
+     *
+     * TODO
+     * Add filter for played games
+     * Add sortoptions for date
+     *
+     * @param $comp_id
+     * @return mixed|string
+     */
+    public function getCompetition($comp_id){
+
+        $comp = file_get_contents("http://db.basketball.nl/db/json/wedstrijd.pl?cmp_ID=$comp_id");
+        $comp = json_decode($comp);
+        return $comp;
+
+    }
+
+    /**
+     * Get score of a cometition
+     *
+     * @param $comp_id
+     * @return mixed|string
+     */
+    public function getScore($comp_id){
+        $comp = file_get_contents("http://db.basketball.nl/db/json/stand.pl?cmp_ID=$comp_id");
+        $comp = json_decode($comp);
+        return $comp;
+    }
+
     public function getLastWeek(){
+
+    }
+
+    public function getStatsForTeam(){
+
+    }
+
+    public function getStatsForComp(){
 
     }
 
@@ -122,8 +193,5 @@ class Nbb{
         //debug($week);
         return $week;
     }
-
-
-
 
 }
