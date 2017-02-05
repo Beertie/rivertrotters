@@ -9,6 +9,10 @@ use Cake\Validation\Validator;
 /**
  * Teams Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Nbbs
+ * @property \Cake\ORM\Association\BelongsTo $TeamMenus
+ * @property \Cake\ORM\Association\HasMany $TeamsHasPlayers
+ *
  * @method \App\Model\Entity\Team get($primaryKey, $options = [])
  * @method \App\Model\Entity\Team newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Team[] newEntities(array $data, array $options = [])
@@ -38,6 +42,15 @@ class TeamsTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Nbbs', [
+            'foreignKey' => 'nbb_id'
+        ]);
+        $this->belongsTo('TeamMenus', [
+            'foreignKey' => 'team_menu_id'
+        ]);
+        $this->hasMany('TeamsHasPlayers', [
+            'foreignKey' => 'team_id'
+        ]);
     }
 
     /**
@@ -59,6 +72,14 @@ class TeamsTable extends Table
         $validator
             ->allowEmpty('slug');
 
+        $validator
+            ->integer('comp_id_1')
+            ->allowEmpty('comp_id_1');
+
+        $validator
+            ->integer('comp_id_2')
+            ->allowEmpty('comp_id_2');
+
         return $validator;
     }
 
@@ -71,6 +92,9 @@ class TeamsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['nbb_id'], 'Nbbs'));
+        $rules->add($rules->existsIn(['team_menu_id'], 'TeamMenus'));
+
         return $rules;
     }
 }

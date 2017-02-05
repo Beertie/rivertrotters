@@ -4,19 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Team Entity
+ * TeamMenu Entity
  *
  * @property int $id
  * @property string $name
- * @property string $slug
- * @property int $nbb_id
- * @property int $comp_id_1
- * @property int $comp_id_2
- * @property int $team_menu_id
  * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $modified
+ * @property \Cake\I18n\Time $modifed
+ *
+ * @property \App\Model\Entity\Team[] $teams
  */
-class Team extends Entity
+class TeamMenu extends Entity
 {
 
     /**
