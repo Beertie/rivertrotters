@@ -138,6 +138,147 @@ class Nbb{
 
     }
 
+    public function getStats($comp_id){
+
+        $score = file_get_contents("http://db.basketball.nl/db/json/wedstrijd.pl?cmp_ID=$comp_id");
+        $score = json_decode($score);
+        //debug($score);
+        $stats = [];
+        foreach ($score->wedstrijden as $game){
+
+
+            //If no score skip
+            if($game->score_thuis == 0 AND $game->score_uit == 0){
+                continue;
+            }
+
+            $stats[$game->thuis_ploeg_id]['name'] = $game->thuis_ploeg;
+            $stats[$game->uit_ploeg_id]['name'] = $game->uit_ploeg;
+
+
+            //Set defauls
+            if(!isset($stats[$game->thuis_ploeg_id]['home']['win'])){
+                $stats[$game->thuis_ploeg_id]['home']['win'] = 0;
+            }
+
+            if(!isset($stats[$game->thuis_ploeg_id]['home']['lose'])){
+                $stats[$game->thuis_ploeg_id]['home']['lose'] = 0;
+            }
+
+            if(!isset($stats[$game->uit_ploeg_id]['away']['win'])){
+                $stats[$game->uit_ploeg_id]['away']['win'] = 0;
+            }
+
+            if(!isset($stats[$game->uit_ploeg_id]['away']['lose'])){
+                $stats[$game->uit_ploeg_id]['away']['lose'] = 0;
+            }
+
+            if(!isset($stats[$game->thuis_ploeg_id]['streak'])){
+                $stats[$game->thuis_ploeg_id]['streak'] = 0;
+            }
+
+            if(!isset($stats[$game->uit_ploeg_id]['streak'])){
+                $stats[$game->uit_ploeg_id]['streak'] = 0;
+            }
+
+            $home_win = true;
+            if($game->score_thuis < $game->score_uit){
+                $home_win = false;
+            }
+
+
+            if($home_win){
+
+                //Count the wins and lose
+                $stats[$game->thuis_ploeg_id]['home']['win'] = $stats[$game->thuis_ploeg_id]['home']['win'] + 1;
+                $stats[$game->uit_ploeg_id]['away']['lose'] = $stats[$game->uit_ploeg_id]['away']['lose'] + 1;
+
+                //Set last 5 record
+                $stats[$game->thuis_ploeg_id]["last"][] = "W";
+                $stats[$game->uit_ploeg_id]["last"][] = "L";
+
+                //Set streak;
+                //Winning team
+                if($stats[$game->thuis_ploeg_id]['streak'] <= 0){
+                    $stats[$game->thuis_ploeg_id]['streak'] = 1;
+                }else{
+                    $stats[$game->thuis_ploeg_id]['streak'] = $stats[$game->thuis_ploeg_id]['streak'] + 1;
+                }
+
+                //Losing team
+                if($stats[$game->uit_ploeg_id]['streak'] > 0){
+                    $stats[$game->uit_ploeg_id]['streak'] = -1;
+                }else{
+                    $stats[$game->uit_ploeg_id]['streak'] = $stats[$game->uit_ploeg_id]['streak'] - 1;
+                }
+
+
+            }else{
+
+                //Count the wins and lose
+                $stats[$game->thuis_ploeg_id]['home']['lose'] = $stats[$game->thuis_ploeg_id]['home']['lose'] + 1;
+                $stats[$game->uit_ploeg_id]['away']['win'] = $stats[$game->uit_ploeg_id]['away']['win'] + 1;
+
+                //Set last 5 record
+                $stats[$game->thuis_ploeg_id]["last"][] = "L";
+                $stats[$game->uit_ploeg_id]["last"][] = "W";
+
+                //Losing team
+                if($stats[$game->uit_ploeg_id]['streak'] > 0){
+                    $stats[$game->uit_ploeg_id]['streak'] = -1;
+
+                }else{
+                    $stats[$game->uit_ploeg_id]['streak'] = $stats[$game->uit_ploeg_id]['streak'] - 1;
+                }
+
+
+                //Winning team
+                if($stats[$game->thuis_ploeg_id]['streak'] <= 0){
+                    $stats[$game->thuis_ploeg_id]['streak'] = 1;
+                }else{
+                    $stats[$game->thuis_ploeg_id]['streak'] = $stats[$game->thuis_ploeg_id]['streak'] + 1;
+                }
+            }
+
+
+        }
+
+        foreach ($stats as $team_id => $st){
+
+            $reversed = array_reverse($st['last']);
+
+            //debug($reversed);
+            $w = 0;
+            $l = 0;
+
+            for($i = 0; $i <= 4; $i++){
+                //debug($reversed[$i]);
+                if($reversed[$i] == "W"){
+                    $w = $w + 1;
+                }else{
+                    $l = $l +1;
+                }
+            }
+
+            $stats[$team_id]["home"] = $stats[$team_id]["home"]['win']."-".$stats[$team_id]["home"]['lose'];
+            $stats[$team_id]["away"] = $stats[$team_id]["away"]['win']."-".$stats[$team_id]["away"]['lose'];
+
+            if($stats[$team_id]['streak'] > 0){
+                $stats[$team_id]['streak'] = "W ".$stats[$team_id]['streak'];
+            }
+
+            if($stats[$team_id]['streak'] < 0){
+                $stats[$team_id]['streak'] = "L ". abs($stats[$team_id]['streak']);
+            }
+
+            $stats[$team_id]["L5"] = $w."-".$l;
+
+        }
+
+        return $stats;
+
+    }
+
     public function getSchedule($comp_id, $team_id){
 
         $comp = file_get_contents("http://db.basketball.nl/db/json/wedstrijd.pl?cmp_ID=$comp_id");

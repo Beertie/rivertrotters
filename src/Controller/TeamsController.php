@@ -75,7 +75,7 @@ class TeamsController extends AppController
 
         $stand = $nbb->getScore($comp_id);
 
-        $stats = $nbb;
+        $stats = $nbb->getStats($comp_id);
 
         $standings = [];
 
@@ -83,6 +83,8 @@ class TeamsController extends AppController
         $GB_team_A_L = '';
 
         foreach ($stand->stand as $key => $value){
+
+
             if($value->status != "Actief"){
                 continue;
             }
@@ -100,7 +102,6 @@ class TeamsController extends AppController
                 $GB = ($GB_team_A_W - $W) + ($L - $GB_team_A_L ) / 2;
             }
 
-
             $standings[] = [
                 "Pos" => $value->positie,
                 "Name" => $value->team,
@@ -108,7 +109,12 @@ class TeamsController extends AppController
                 "L" => (($value->gespeeld * 2 ) - $value->punten) /2,
                 "PCT"=> number_format($value->punten / 2 / $value->gespeeld, 3),
                 "GB" => $GB,
-                "PPG" => $value->eigenscore / $value->gespeeld
+                "PPG" => $value->eigenscore / $value->gespeeld,
+                "OP PPG" => $value->tegenscore / $value->gespeeld,
+                "home" =>  $stats[$value->ID]['home'],
+                "road" =>  $stats[$value->ID]['away'],
+                "streak" =>  $stats[$value->ID]['streak'],
+                "L5" =>  $stats[$value->ID]['L5'],
             ];
         }
 

@@ -39,7 +39,7 @@
         <!-- Team Standings -->
         <div class="card card--has-table">
             <div class="card__header">
-                <h4>Playoffs Standings</h4>
+                <h4>Stand</h4>
             </div>
             <div class="card__content">
                 <div class="table-responsive">
@@ -58,7 +58,7 @@
                             <th class="team-standings__op-ppg">OP PPG</th>
                             <th class="team-standings__diff">DIFF</th>
                             <th class="team-standings__strk">STRK</th>
-                            <th class="team-standings__lead">L10</th>
+                            <th class="team-standings__lead">L5</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -93,7 +93,7 @@
                                 <div class="team-meta">
                                     <div class="team-meta__info">
                                         <h6 class="team-meta__name"><?= $value['Name']?></h6>
-                                        <span class="team-meta__place">Locatie ?</span>
+
                                     </div>
                                 </div>
                             </td>
@@ -101,13 +101,13 @@
                             <td class="team-standings__lose"><?= $value['L'] ?></td>
                             <td class="team-standings__pct"><?= $value['PCT']?></td>
                             <td class="team-standings__gb"><?= $value['GB']?></td>
-                            <td class="team-standings__home">33-8</td>
-                            <td class="team-standings__road">24-17</td>
-                            <td class="team-standings__ppg"><?= $value['PPG']?></td>
-                            <td class="team-standings__op-ppg">98.3</td>
-                            <td class="team-standings__diff">+ 6.0</td>
-                            <td class="team-standings__strk">L 1</td>
-                            <td class="team-standings__lead">6-4</td>
+                            <td class="team-standings__home"><?= $value['home']?></td>
+                            <td class="team-standings__road"><?= $value['road']?></td>
+                            <td class="team-standings__ppg"><?= round($value['PPG'])?></td>
+                            <td class="team-standings__op-ppg"><?= round($value['OP PPG'])?></td>
+                            <td class="team-standings__diff"><?= (round($value['PPG']) - round($value['OP PPG']))?></td>
+                            <td class="team-standings__strk"><?= $value['streak']?></td>
+                            <td class="team-standings__lead"><?= $value['L5']?></td>
                         </tr>
                        <?php }?>
                         </tbody>
