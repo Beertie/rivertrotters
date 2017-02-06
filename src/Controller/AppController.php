@@ -23,6 +23,8 @@ use Cake\Event\Event;
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
+ * @property \App\Model\Table\TeamMenusTable $TeamMenus
+ *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller
@@ -44,6 +46,11 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
 
+        $this->loadModel('TeamMenus');
+
+        $menu = $this->TeamMenus->find('all')->contain(['Teams']);
+        $this->set(compact('menu'));
+
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -64,6 +71,9 @@ class AppController extends Controller
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             //$this->viewBuilder()->layout('admin');
+
+
+
 
             $this->set('_serialize', true);
         }

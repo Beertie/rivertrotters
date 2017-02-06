@@ -16,6 +16,7 @@
         ?>
     </title>
 
+
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('/bower_components/datatables-responsive/css/responsive.dataTables.css') ?>
     <?= $this->Html->css('/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css') ?>
@@ -244,42 +245,24 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class=""><a href="#">The Teams</a>
-                                <ul class="main-nav__sub">
-                                    <li><a href="team-roster-2.html">Heren</a>
-                                        <ul class="main-nav__sub-2">
-                                            <li><a href="team-roster-1.html">Heren 1</a></li>
-                                            <li><a href="team-roster-2.html">Heren 2</a></li>
-                                            <li><a href="team-roster-2.html">Heren 3</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="team-roster-2.html">Dames</a>
-                                        <ul class="main-nav__sub-2">
-                                            <li><a href="team-roster-1.html">Dames 1</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="team-roster-2.html">Jonges</a>
-                                        <ul class="main-nav__sub-2">
-                                            <li><a href="team-roster-1.html">JU 18</a></li>
-                                            <li><a href="team-roster-1.html">JU 16</a></li>
-                                            <li><a href="team-roster-1.html">JU 14-1</a></li>
-                                            <li><a href="team-roster-1.html">JU 14-2</a></li>
+                            <li class=""><a href="#">De Teams</a>
 
-                                        </ul>
-                                    </li>
-                                    <li><a href="team-roster-2.html">Meisjes</a>
-                                        <ul class="main-nav__sub-2">
-                                            <li><a href="team-roster-1.html">MU 18</a></li>
-                                            <li><a href="team-roster-1.html">MU 16</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="team-roster-2.html">Mix</a>
-                                        <ul class="main-nav__sub-2">
-                                            <li><a href="team-roster-1.html">U12-1</a></li>
-                                            <li><a href="team-roster-1.html">U12-2</a></li>
-                                            <li><a href="team-roster-1.html">U10</a></li>
-                                        </ul>
-                                    </li>
+
+
+                                <ul class="main-nav__sub">
+                                    <?php
+                                    foreach ($menu as $menuItem){
+                                        echo '<li><a href="#">'.$menuItem->name.'</a>';
+                                        echo '<ul class="main-nav__sub-2">';
+                                        foreach ($menuItem->teams as $teamMenu){
+                                            echo '<li><a href="/teams/index/'.$teamMenu->id.'">'.$teamMenu->name.'</a></li>';
+                                        }
+                                        echo '</ul>';
+                                        echo '</li>';
+                                    }
+                                    ?>
+
+
                                 </ul>
                             </li>
                             <li class=""><a href="#">News</a>
