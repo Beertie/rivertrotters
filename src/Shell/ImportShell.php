@@ -12,12 +12,12 @@ use Cake\Utility\Text;
 class ImportShell extends Shell
 {
 
-   public function __construct($io)
+   public function __construct()
    {
        //Load Models
        $this->loadModel("Teams");
 
-       parent::__construct($io);
+       parent::__construct();
    }
 
     /**
