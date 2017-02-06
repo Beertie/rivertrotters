@@ -18,6 +18,8 @@ class TeamMenusController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->layout('admin');
+
         $teamMenus = $this->paginate($this->TeamMenus);
 
         $this->set(compact('teamMenus'));
@@ -48,6 +50,8 @@ class TeamMenusController extends AppController
      */
     public function add()
     {
+
+        $this->viewBuilder()->layout('admin');
         $teamMenu = $this->TeamMenus->newEntity();
         if ($this->request->is('post')) {
             $teamMenu = $this->TeamMenus->patchEntity($teamMenu, $this->request->data);

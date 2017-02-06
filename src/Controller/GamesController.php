@@ -86,6 +86,8 @@ class GamesController extends AppController
         $this->set('_serialize', ['week']);
     }
 
+
+
     public function getStartAndEndDate($week, $year)
     {
 
