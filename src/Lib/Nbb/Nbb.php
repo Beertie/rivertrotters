@@ -138,6 +138,28 @@ class Nbb{
 
     }
 
+    public function getSchedule($comp_id, $team_id){
+
+        $comp = file_get_contents("http://db.basketball.nl/db/json/wedstrijd.pl?cmp_ID=$comp_id");
+        $comp = json_decode($comp);
+
+        $schedule = [];
+        foreach ($comp->wedstrijden as $key => $game){
+
+            if($game->thuis_ploeg_id == $team_id OR $game->uit_ploeg_id == $team_id){
+
+                if($game->score_thuis == 0 AND $game->score_uit == 0){
+                    $schedule[] = $game;
+                }
+
+            }
+
+        }
+
+        return $schedule;
+
+    }
+
     /**
      *
      *
