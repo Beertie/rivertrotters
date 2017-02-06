@@ -20,12 +20,12 @@
     <div class="container">
         <a href="#" class="content-filter__toggle"></a>
         <ul class="content-filter__list">
-            <li class="content-filter__item content-filter__item--active"><a href="team-overview.html" class="content-filter__link"><small>The Team</small>Overview</a></li>
-            <li class="content-filter__item "><a href="team-roster-1.html" class="content-filter__link"><small>The Team</small>Roster</a></li>
-            <li class="content-filter__item "><a href="team-standings.html" class="content-filter__link"><small>The Team</small>Standings</a></li>
-            <li class="content-filter__item "><a href="team-last-results.html" class="content-filter__link"><small>The Team</small>Latest Results</a></li>
-            <li class="content-filter__item "><a href="team-schedule.html" class="content-filter__link"><small>The Team</small>Schedule</a></li>
-            <li class="content-filter__item "><a href="team-gallery.html" class="content-filter__link"><small>The Team</small>Gallery</a></li>
+            <li class="content-filter__item content-filter__item--active"><a href="team-overview.html" class="content-filter__link"><small>Team</small>Overview</a></li>
+            <li class="content-filter__item "><a href="/teams/roster/<?= $team->id?>" class="content-filter__link"><small>Team</small>Spelers</a></li>
+            <li class="content-filter__item "><a href="/teams/standing/<?= $team->id?>" class="content-filter__link"><small>Team</small>Stand</a></li>
+            <li class="content-filter__item "><a href="/teams/results/<?= $team->id?>" class="content-filter__link"><small>Team</small>Uitslagen</a></li>
+            <li class="content-filter__item "><a href="/teams/schedule/<?= $team->id?>" class="content-filter__link"><small>Team</small>Schema</a></li>
+            <li class="content-filter__item "><a href="/teams/gallery/<?= $team->id?>" class="content-filter__link"><small>Team</small>Foto's</a></li>
         </ul>
     </div>
 </nav>
@@ -212,8 +212,8 @@
                         <h4>Points History</h4>
                         <a href="team-schedule.html" class="btn btn-default btn-outline btn-xs card-header__button">See Complete History</a>
                     </div>
-                    <div class="card__content">
-                        <canvas id="points-history" class="points-history-chart" height="135"></canvas>
+                    <div class="card__content" onload="draw();">
+                        <canvas id="canvas"  height="135"></canvas>
                     </div>
                 </div>
                 <!-- Points History / End -->
@@ -421,3 +421,19 @@
 </div>
 
 <!-- Content / End -->
+
+<script>
+    function draw() {
+        var canvas = document.getElementById('canvas');
+        if (canvas.getContext) {
+            var ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            ctx.moveTo(75, 50);
+            ctx.lineTo(100, 75);
+            ctx.lineTo(100, 25);
+            ctx.fill();
+        }
+    }
+
+</script>
