@@ -114,15 +114,22 @@ class Nbb{
 
     }
 
-    /**
-     * Get score of a cometition
-     *
-     * @param $comp_id
-     * @return mixed|string
-     */
-    public function getScore($comp_id){
-        $comp = file_get_contents("http://db.basketball.nl/db/json/stand.pl?cmp_ID=$comp_id");
+
+    public function getScore($comp_id, $year = false){
+
+        $url = "http://db.basketball.nl/db/json/stand.pl?cmp_ID=$comp_id";
+
+        if($year != false){
+            $url .= "&&seizoen=".$year."-".($year + 1);
+        }
+        //debug($url);
+
+
+        $comp = file_get_contents($url);
         $comp = json_decode($comp);
+
+        //debug($comp);
+
         return $comp;
     }
 
@@ -138,11 +145,19 @@ class Nbb{
 
     }
 
-    public function getStats($comp_id){
+    public function getStats($comp_id, $year = false){
 
-        $score = file_get_contents("http://db.basketball.nl/db/json/wedstrijd.pl?cmp_ID=$comp_id");
+        $url = "http://db.basketball.nl/db/json/wedstrijd.pl?cmp_ID=$comp_id";
+
+        if($year != false){
+            $url .= "&&seizoen=".$year."-".($year + 1);
+        }
+        //debug($url);
+
+
+        $score = file_get_contents($url);
         $score = json_decode($score);
-        //debug($score);
+
         $stats = [];
         foreach ($score->wedstrijden as $game){
 
