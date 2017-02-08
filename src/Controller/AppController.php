@@ -24,6 +24,7 @@ use Cake\Event\Event;
  * will inherit them.
  *
  * @property \App\Model\Table\TeamMenusTable $TeamMenus
+ * @property \App\Model\Table\YearsTable $Years
  *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
@@ -47,9 +48,15 @@ class AppController extends Controller
         $this->loadComponent('Flash');
 
         $this->loadModel('TeamMenus');
+        $this->loadModel('Years');
 
         $menu = $this->TeamMenus->find('all')->contain(['Teams']);
-        $this->set(compact('menu'));
+
+        $history = $this->Years->find('all')->contain(['HistoryTeams']);
+
+        //debug($history->toArray());exit;
+
+        $this->set(compact('menu', 'history'));
 
         /*
          * Enable the following components for recommended CakePHP security settings.

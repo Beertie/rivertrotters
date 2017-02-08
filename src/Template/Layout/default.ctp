@@ -265,19 +265,22 @@
 
                                 </ul>
                             </li>
-                            <li class=""><a href="#">News</a>
+                            <li class=""><a href="#">History teams</a>
+
                                 <ul class="main-nav__sub">
-                                    <li><a href="blog-1.html">News - version 1</a></li>
-                                    <li><a href="blog-2.html">News - version 2</a></li>
-                                    <li><a href="blog-3.html">News - version 3</a></li>
-                                    <li><a href="blog-4.html">News - version 4</a></li>
-                                    <li><a href="#">Post</a>
-                                        <ul class="main-nav__sub-2">
-                                            <li><a href="blog-post-1.html">Single Post - version 1</a></li>
-                                            <li><a href="blog-post-2.html">Single Post - version 2</a></li>
-                                            <li><a href="blog-post-3.html">Single Post - version 3</a></li>
-                                        </ul>
-                                    </li>
+                                    <?php
+                                    foreach ($history as $hisMenuItem){
+                                        echo '<li><a href="#">'.$hisMenuItem->name.'</a>';
+                                        echo '<ul class="main-nav__sub-2">';
+                                        foreach ($hisMenuItem->history_teams as $hisTeamMenu){
+                                            echo '<li><a href="/historyTeams/index/'.$hisTeamMenu->id.'">'.$hisTeamMenu->name.'</a></li>';
+                                        }
+                                        echo '</ul>';
+                                        echo '</li>';
+                                    }
+                                    ?>
+
+
                                 </ul>
                             </li>
                         </ul>

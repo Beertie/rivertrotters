@@ -7,18 +7,23 @@ use Cake\Utility\Text;
 /**
  * Import shell command.
  *
+ *
  * @property \App\Model\Table\TeamsTable $Teams
+ * @property \App\Model\Table\YearsTable $Years
+ * @property \App\Model\Table\HistoryTeamsTable $HistoryTeams
  */
 class ImportShell extends Shell
 {
 
-  /* public function __construct($io)
+   public function __construct()
    {
        //Load Models
-       //$this->loadModel("Teams");
+       $this->loadModel("Teams");
+       $this->loadModel("Years");
+       $this->loadModel("HistoryTeams");
 
-       parent::__construct($io);
-   }*/
+       parent::__construct();
+   }
 
     /**
      * Syc teams form NBB api to local DB
@@ -54,41 +59,67 @@ class ImportShell extends Shell
 
     }
 
-    public function getInternet(){
+    public function addYears(){
 
-        for($i =0; $i < 100000; $i++){
-            $int = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9)."-".rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
-            echo "$int \n";
+        for ($i = 1997; $i < 2016; $i++){
+            echo $i. " - ". ($i +1)."\n";
 
-            $url = "http://178.63.77.69:8880/guest/s/default/login";
+            $year = $this->Years->newEntity();
+            $year->name = $i. " - ". ($i +1);
+            $year->start = $i;
+            $year->end = ($i + 1);
+            $year->sort_order = ($i - 1996);
+            $this->Years->save($year);
 
-            $fields = "by=voucher&page_error=index.html&voucher=".$int;
-
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL, $url );
-        /*    curl_setopt($ch,CURLOPT_HEADER, false );
-            curl_setopt($ch,CURLOPT_USERAGENT, 'User-Agent:"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:51.0) Gecko/20100101 Firefox/51.0"');
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch,CURLOPT_BINARYTRANSFER, true);*/
-            curl_setopt($ch,CURLOPT_POST, 3 );
-            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields );
-
-            debug($ch);
-
-            $result = curl_exec($ch);
-            exit;
-
-            curl_close($ch);
-
-            if($result == false){
-
-                debug($result);
-                exit;
-            }
-
-            //exit;
 
         }
+    }
+
+    public function importTeams(){
+        //Get years
+
+        $years = $this->Years->find();
+
+        foreach ($years as $year){
+
+            //Get the comp
+
+            $url = "http://db.basketball.nl/db/json/team.pl?clb_ID=81&seizoen=".$year->start."-".$year->end;
+
+            $teams = file_get_contents($url);
+            $teams = json_decode($teams);
+
+            //Merge teams
+            $mTeams = [];
+            foreach ($teams->teams as $team){
+                if(!isset($mTeams[$team->id]['name'])){
+                    $mTeams[$team->id]['name'] = $team->naam;
+                    $mTeams[$team->id]['nbb'] = $team->id;
+                    $mTeams[$team->id]['comp_id_1'] = $team->comp_id;
+                    $mTeams[$team->id]['comp_id_2'] = null;
+                }else{
+                    $mTeams[$team->id]['comp_id_2'] = $team->comp_id;
+                }
+            }
+
+            //debug($mTeams);
+
+            //Save teams
+            foreach ($mTeams as $mTeam){
+                $hisTeam = $this->HistoryTeams->newEntity();
+                $hisTeam->name = $mTeam['name'];
+                $hisTeam->slug = strtolower(Text::slug(trim($mTeam['name'])));
+                $hisTeam->nbb_id = $mTeam['nbb'];
+                $hisTeam->comp_id_1 = $mTeam['comp_id_1'];
+                $hisTeam->comp_id_2 = $mTeam['comp_id_2'];
+                $hisTeam->year_id = $year->id;
+
+                $this->HistoryTeams->save($hisTeam);
+            }
+
+
+        }
+
 
     }
 }
