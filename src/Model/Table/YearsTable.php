@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Years Model
  *
+ * @property \Cake\ORM\Association\HasMany $HistoryTeams
+ *
  * @method \App\Model\Entity\Year get($primaryKey, $options = [])
  * @method \App\Model\Entity\Year newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Year[] newEntities(array $data, array $options = [])
@@ -37,6 +39,10 @@ class YearsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('HistoryTeams', [
+            'foreignKey' => 'year_id'
+        ]);
     }
 
     /**
