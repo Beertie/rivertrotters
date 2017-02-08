@@ -18,8 +18,6 @@ class PlayersController extends AppController
      */
     public function index()
     {
-        $this->viewBuilder()->layout('admin');
-
         $players = $this->paginate($this->Players);
 
         $this->set(compact('players'));

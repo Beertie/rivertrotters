@@ -58,14 +58,61 @@ class PlayersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->allowEmpty('first_name');
+
+        $validator
+            ->allowEmpty('last_name');
+
+        $validator
+            ->allowEmpty('insertion');
+
+        $validator
+            ->allowEmpty('location');
+
+        $validator
+            ->allowEmpty('phone_1');
+
+        $validator
+            ->allowEmpty('phone_2');
+
+        $validator
+            ->allowEmpty('date_of_birth');
+
+        $validator
+            ->integer('membership')
+            ->allowEmpty('membership');
+
+        $validator
+            ->allowEmpty('diploma');
+
+        $validator
+            ->email('email')
+            ->allowEmpty('email');
+
+        $validator
+            ->allowEmpty('status');
+
+        $validator
+            ->allowEmpty('member_since');
 
         $validator
             ->integer('number')
-            ->requirePresence('number', 'create')
-            ->notEmpty('number');
+            ->allowEmpty('number');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['email']));
+
+        return $rules;
     }
 }

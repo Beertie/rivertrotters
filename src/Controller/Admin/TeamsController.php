@@ -18,7 +18,6 @@ class TeamsController extends AppController
      */
     public function index()
     {
-        $this->viewBuilder()->layout('admin');
 
         $teams = $this->paginate($this->Teams);
 
