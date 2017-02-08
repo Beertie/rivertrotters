@@ -54,16 +54,9 @@ class AppController extends Controller
 
         $history = $this->Years->find('all')->contain(['HistoryTeams']);
 
-        //debug($history->toArray());exit;
 
         $this->set(compact('menu', 'history'));
 
-        /*
-         * Enable the following components for recommended CakePHP security settings.
-         * see http://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
     }
 
     /**
@@ -77,13 +70,14 @@ class AppController extends Controller
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
-            //$this->viewBuilder()->layout('admin');
-
-
-
 
             $this->set('_serialize', true);
+        } else{
+            if($this->request->param('prefix') == "admin"){
+                $this->viewBuilder()->layout('admin');
+            }
         }
+
     }
 
 }
