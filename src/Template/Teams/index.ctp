@@ -232,19 +232,27 @@
                     <div class="widget__content card__content">
                         <ul class="widget-results__list">
 
-                            <?php foreach ($results->wedstrijden as $key => $game){?>
-
-
                             <?php
-                                if($key == 3){
-                                    break;
-                                }
+                                $results = $results->wedstrijden;
+
+                                $results = array_reverse($results);
+
+
+                                $counter = 0;
+                                foreach ($results as $key => $game){
+
 
                                 //debug($team);exit;
 
                                 if($game->score_thuis == 0 AND $game->score_uit == 0){
                                     continue;
                                 }
+
+                                if($counter == 3){
+                                    break;
+                                }
+                                $counter++;
+
                                 $i = "W";
                                 $home = "Thuis";
                                 $vs = $game->uit_ploeg;
@@ -276,7 +284,7 @@
                                     </div>
                                     <div class="widget-results__result">
                                         <div class="widget-results__score">
-                                            <span class="team-result__game"><?= $i?></span> <?= $game->score_thuis?>-<?= $game->score_uit?>
+                                            <span class="team-result__game"><?= $i?></span> <?= $game->score_thuis?> - <?= $game->score_uit?>
                                             <div class="widget-results__status"><?= $home ?></div>
                                         </div>
                                     </div>
