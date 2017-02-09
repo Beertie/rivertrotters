@@ -31,48 +31,26 @@ class TeamsController extends AppController
         $i= 1;
         foreach ($competition->wedstrijden as $key => $value){
 
-            //debug($value);
-            $date = explode(" ", $value->datum);
-            //$score =[];
-
             //TODO set to global club id
             if($value->thuis_club_id == 81){
                 if($value->score_thuis != 0){
                     $score = ['x' => $i, 'y' => (int) $value->score_thuis];
                     $i++;
-
+                    $score_home[] = $score;
                 }
-                $score_home[] = $score;
+
             }
 
             if($value->uit_club_id == 81){
                 if($value->score_uit != 0){
                     $score = ['x' =>  $i, 'y' => (int) $value->score_uit];
                     $i++;
-
+                    $score_home[] = $score;
                 }
-                $score_home[] = $score;
+
             }
 
-
-
         }
-
-        /*
-         * [
-         * { x: 10, y: 10 },
-            { x: 20, y: 12 },
-            { x: 30, y: 8 },
-            { x: 40, y: 14 },
-            { x: 50, y: 6 },
-            { x: 60, y: 24 },
-            { x: 70, y: -4 },
-            { x: 80, y: 10 }
-        ]
-         */
-
-        //debug(json_encode($score_home, true));exit;
-
 
         $this->set(compact('team', 'competition', 'stand', 'score_home'));
         $this->set('_serialize', ['team']);
