@@ -1,8 +1,4 @@
-<?php
 
-debug($score_home);
-
-?>
 <script type="text/javascript">
     $(function () {
 
