@@ -1,3 +1,31 @@
+<?php
+
+debug($score_home);
+
+?>
+<script type="text/javascript">
+    $(function () {
+
+        var obj = <?php echo json_encode($score_home, true); ?>;
+
+        console.log(obj)
+
+        //Better to construct options first and then pass it as a parameter
+        var options = {
+            animationEnabled: true,
+            data: [
+                {
+                    type: "spline", //change it to line, area, column, pie, etc
+                    dataPoints: obj
+                }
+            ]
+        };
+
+        $("#chartContainer").CanvasJSChart(options);
+
+    });
+</script>
+
 <!-- Page Heading
  ================================================== -->
 <div class="page-heading">
@@ -114,91 +142,6 @@
                                     <td class="team-schedule__venue">Madison Cube Stadium</td>
                                     <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
                                 </tr>
-                                <tr>
-                                    <td class="team-schedule__date">Friday, May 31</td>
-                                    <td class="team-schedule__versus">
-                                        <div class="team-meta">
-                                            <figure class="team-meta__logo">
-                                                <img src="assets/images/samples/logos/red_wings_shield.png" alt="">
-                                            </figure>
-                                            <div class="team-meta__info">
-                                                <h6 class="team-meta__name">Red Wings</h6>
-                                                <span class="team-meta__place">Icarus College</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="team-schedule__time">9:30PM EST</td>
-                                    <td class="team-schedule__venue">Alchemists Stadium</td>
-                                    <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block disabled">Sold Out</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="team-schedule__date">Saturday, May 8</td>
-                                    <td class="team-schedule__versus">
-                                        <div class="team-meta">
-                                            <figure class="team-meta__logo">
-                                                <img src="assets/images/samples/logos/draconians_shield.png" alt="">
-                                            </figure>
-                                            <div class="team-meta__info">
-                                                <h6 class="team-meta__name">Draconians</h6>
-                                                <span class="team-meta__place">Wyvern College</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="team-schedule__time">10:00PM EST</td>
-                                    <td class="team-schedule__venue">Scalding Rock Stadium</td>
-                                    <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="team-schedule__date">Friday, May 14</td>
-                                    <td class="team-schedule__versus">
-                                        <div class="team-meta">
-                                            <figure class="team-meta__logo">
-                                                <img src="assets/images/samples/logos/aqua_keyes_shield.png" alt="">
-                                            </figure>
-                                            <div class="team-meta__info">
-                                                <h6 class="team-meta__name">Aqua Keyes</h6>
-                                                <span class="team-meta__place">Pacific Institute</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="team-schedule__time">10:00PM EST</td>
-                                    <td class="team-schedule__venue">Alchemists Stadium</td>
-                                    <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="team-schedule__date">Saturday, May 22</td>
-                                    <td class="team-schedule__versus">
-                                        <div class="team-meta">
-                                            <figure class="team-meta__logo">
-                                                <img src="assets/images/samples/logos/icarus_wings_shield.png" alt="">
-                                            </figure>
-                                            <div class="team-meta__info">
-                                                <h6 class="team-meta__name">Icarus Wings</h6>
-                                                <span class="team-meta__place">Waxer College</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="team-schedule__time">10:30PM EST</td>
-                                    <td class="team-schedule__venue">The FireStar Arena</td>
-                                    <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block disabled">Sold Out</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="team-schedule__date">Saturday, May 29</td>
-                                    <td class="team-schedule__versus">
-                                        <div class="team-meta">
-                                            <figure class="team-meta__logo">
-                                                <img src="assets/images/samples/logos/bloody_wave_shield.png" alt="">
-                                            </figure>
-                                            <div class="team-meta__info">
-                                                <h6 class="team-meta__name">Bloody Wave</h6>
-                                                <span class="team-meta__place">Atlantic School</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="team-schedule__time">9:00PM EST</td>
-                                    <td class="team-schedule__venue">Alchemists Stadium</td>
-                                    <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -212,9 +155,7 @@
                         <h4>Points History</h4>
                         <a href="team-schedule.html" class="btn btn-default btn-outline btn-xs card-header__button">See Complete History</a>
                     </div>
-                    <div class="card__content" onload="draw();">
-                        <canvas id="canvas"  height="135"></canvas>
-                    </div>
+                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
                 </div>
                 <!-- Points History / End -->
 
@@ -285,9 +226,7 @@
                                 <h5 class="widget-results__title">Saturday, March 24</h5>
                                 <div class="widget-results__content">
                                     <div class="widget-results__team widget-results__team--first">
-                                        <figure class="widget-results__team-logo">
-                                            <img src="assets/images/samples/logos/alchemists_b_shield.png" alt="">
-                                        </figure>
+
                                         <div class="widget-results__team-details">
                                             <h5 class="widget-results__team-name">Alchemists</h5>
                                             <span class="widget-results__team-info">Elric Bros School</span>
@@ -300,9 +239,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-results__team widget-results__team--second">
-                                        <figure class="widget-results__team-logo">
-                                            <img src="assets/images/samples/logos/sharks_shield.png" alt="">
-                                        </figure>
+
                                         <div class="widget-results__team-details">
                                             <h5 class="widget-results__team-name">Sharks</h5>
                                             <span class="widget-results__team-info">Marine College</span>
@@ -317,9 +254,7 @@
                                 <h5 class="widget-results__title">Friday, March 16</h5>
                                 <div class="widget-results__content">
                                     <div class="widget-results__team widget-results__team--first">
-                                        <figure class="widget-results__team-logo">
-                                            <img src="assets/images/samples/logos/pirates_shield.png" alt="">
-                                        </figure>
+
                                         <div class="widget-results__team-details">
                                             <h5 class="widget-results__team-name">L.A. Pirates</h5>
                                             <span class="widget-results__team-info">Bebop Institute</span>
@@ -332,9 +267,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-results__team widget-results__team--second">
-                                        <figure class="widget-results__team-logo">
-                                            <img src="assets/images/samples/logos/alchemists_b_shield.png" alt="">
-                                        </figure>
+
                                         <div class="widget-results__team-details">
                                             <h5 class="widget-results__team-name">Alchemists</h5>
                                             <span class="widget-results__team-info">Eric Bros School</span>
@@ -349,9 +282,7 @@
                                 <h5 class="widget-results__title">Saturday, March 10</h5>
                                 <div class="widget-results__content">
                                     <div class="widget-results__team widget-results__team--first">
-                                        <figure class="widget-results__team-logo">
-                                            <img src="assets/images/samples/logos/alchemists_b_shield.png" alt="">
-                                        </figure>
+
                                         <div class="widget-results__team-details">
                                             <h5 class="widget-results__team-name">Alchemists</h5>
                                             <span class="widget-results__team-info">Eric Bros School</span>
@@ -364,9 +295,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-results__team widget-results__team--second">
-                                        <figure class="widget-results__team-logo">
-                                            <img src="assets/images/samples/logos/lucky_clovers_shield.png" alt="">
-                                        </figure>
+
                                         <div class="widget-results__team-details">
                                             <h5 class="widget-results__team-name">Clovers</h5>
                                             <span class="widget-results__team-info">St. Patrick’s Inst</span>
@@ -381,9 +310,7 @@
                                 <h5 class="widget-results__title">Friday, March 4</h5>
                                 <div class="widget-results__content">
                                     <div class="widget-results__team widget-results__team--first">
-                                        <figure class="widget-results__team-logo">
-                                            <img src="assets/images/samples/logos/ocean_kings_shield.png" alt="">
-                                        </figure>
+
                                         <div class="widget-results__team-details">
                                             <h5 class="widget-results__team-name">Ocean Kings</h5>
                                             <span class="widget-results__team-info">Bay College</span>
@@ -396,9 +323,7 @@
                                         </div>
                                     </div>
                                     <div class="widget-results__team widget-results__team--second">
-                                        <figure class="widget-results__team-logo">
-                                            <img src="assets/images/samples/logos/alchemists_b_shield.png" alt="">
-                                        </figure>
+
                                         <div class="widget-results__team-details">
                                             <h5 class="widget-results__team-name">Alchemists</h5>
                                             <span class="widget-results__team-info">Eric Bros School</span>

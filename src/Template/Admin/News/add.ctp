@@ -1,24 +1,48 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List News'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>
-    </ul>
+<div id="page-title">
+
+    <h1><?= __('Add news') ?></h1>
+
+</div>
+
+<nav id="actions">
+
+    <a href="<?php echo $this->Url->build(['controller' => 'News', 'action' => 'index']); ?>" class="btn btn-default"><span class="fa fa-chevron-left"></span> <?php echo __("News"); ?></a>
+
 </nav>
-<div class="news form large-9 medium-8 columns content">
-    <?= $this->Form->create($news) ?>
-    <fieldset>
-        <legend><?= __('Add News') ?></legend>
-        <?php
-            echo $this->Form->input('title');
-            echo $this->Form->input('articleBody');
-            echo $this->Form->input('author');
-            echo $this->Form->input('liked');
-            echo $this->Form->input('tag');
-            echo $this->Form->input('team_id', ['options' => $teams]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<h2><span><?php echo __('Add News') ?></span></h2>
+
+<div class="row users">
+
+    <div class="col-md-7">
+
+        <div class="form-horizontal">
+
+            <?= $this->Form->create($news, ['align' => [
+                'md' => [
+                    'left' => 2,
+                    'middle' => 10
+                ]
+            ]]) ?>
+            <?php
+            echo $this->Form->input('title', [ 'class' => 'form-control' ]);
+            echo $this->Form->input('articleBody', ['class' => 'form-control' , "type" => 'textarea']);
+            echo $this->Form->input('author', [ 'class' => 'form-control' ]);
+            echo $this->Form->input('team_id', ['class' => 'form-control', 'options' => $teams ]);
+            ?>
+            <div class="form-group">
+
+                <div class="col-sm-offset-2 col-sm-10">
+
+                    <?php echo $this->Form->button(__('Submit'), ['class' => 'btn btn-default']); ?>
+
+                </div>
+
+            </div>
+            <?= $this->Form->end() ?>
+
+        </div>
+
+    </div>
+
 </div>

@@ -41,8 +41,7 @@ class NewsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Teams', [
-            'foreignKey' => 'team_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'team_id'
         ]);
     }
 
@@ -59,25 +58,20 @@ class NewsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('title', 'create')
-            ->notEmpty('title');
+            ->allowEmpty('title');
 
         $validator
-            ->requirePresence('articleBody', 'create')
-            ->notEmpty('articleBody');
+            ->allowEmpty('articleBody');
 
         $validator
-            ->requirePresence('author', 'create')
-            ->notEmpty('author');
+            ->allowEmpty('author');
 
         $validator
             ->integer('liked')
-            ->requirePresence('liked', 'create')
-            ->notEmpty('liked');
+            ->allowEmpty('liked');
 
         $validator
-            ->requirePresence('tag', 'create')
-            ->notEmpty('tag');
+            ->allowEmpty('tag');
 
         return $validator;
     }

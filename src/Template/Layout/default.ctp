@@ -52,6 +52,8 @@
     <?= $this->Html->script('/js/core-min.js', ['block' => 'scriptBottom']) ?>
     <?= $this->Html->script('/js/init.js', ['block' => 'scriptBottom']) ?>
     <?= $this->Html->script('/js/custom.js', ['block' => 'scriptBottom']) ?>
+    <?= $this->Html->script('/js/plugins/jquery.canvasjs.min.js', ['block' => 'scriptBottom']) ?>
+
 
 
 
