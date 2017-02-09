@@ -143,6 +143,22 @@ class Nbb{
 
     public function getStatsForComp(){
 
+
+
+    }
+
+    public function getResultsByTeam($team_id){
+        //plg_ID
+        ////http://db.basketball.nl/db/wedstrijd/uitslag.pl?&szn_Naam=2016-2017&cmp_ID=1045&plg_ID=767&org_ID=2&LVactie=Wedstrijdgegevens+tonen&Sorteer=wed_Datum
+        $url = "http://db.basketball.nl/db/json/wedstrijd.pl?plg_ID=$team_id";
+        $score = file_get_contents($url);
+        $score = json_decode($score);
+
+        //debug($score);
+
+        return $score;
+
+
     }
 
     public function getStats($comp_id, $year = false){

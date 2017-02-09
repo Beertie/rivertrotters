@@ -31,6 +31,8 @@ class TeamsController extends AppController
 
         $competition = $nbb->getCompetition($comp_id);
 
+        $results = $nbb->getResultsByTeam($team->nbb_id);
+
         $score_home = [];
         $i= 1;
         foreach ($competition->wedstrijden as $key => $value){
@@ -54,7 +56,7 @@ class TeamsController extends AppController
 
         }
 
-        $this->set(compact('team', 'competition', 'stand', 'score_home', 'schedule'));
+        $this->set(compact('team', 'competition', 'stand', 'score_home', 'schedule', 'results'));
         $this->set('_serialize', ['team']);
 
     }
@@ -128,7 +130,10 @@ class TeamsController extends AppController
     public function results($id){
         $team = $this->Teams->get($id);
 
-        $this->set(compact('team'));
+        $nbb = new Nbb();
+        $results = $nbb->getResultsByTeam($team->nbb_id);
+
+        $this->set(compact('team', 'results'));
         $this->set('_serialize', ['team']);
 
     }
