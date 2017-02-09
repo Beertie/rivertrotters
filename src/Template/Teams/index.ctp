@@ -194,24 +194,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($stand->stand as $team){?>
+                                <?php foreach ($stand->stand as $team_stand){?>
                                     <?php
 
                                     //debug($team);exit;
                                     ?>
 
                                     <tr>
-                                        <td><?= $team->rang?></td>
+                                        <td><?= $team_stand->rang?></td>
                                         <td>
                                             <div class="team-meta">
                                                 <div class="team-meta__info">
-                                                    <h6 class="team-meta__name"><?= $team->team?></h6>
+                                                    <h6 class="team-meta__name"><?= $team_stand->team?></h6>
 
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><?= ($team->punten / 2)?></td>
-                                        <td><?= $team->saldo?></td>
+                                        <td><?= ($team_stand->punten / 2)?></td>
+                                        <td><?= $team_stand->saldo?></td>
                                     </tr>
                                 <?php } ?>
 
@@ -232,117 +232,65 @@
                     <div class="widget__content card__content">
                         <ul class="widget-results__list">
 
+                            <?php foreach ($results->wedstrijden as $key => $game){?>
+
+
+                            <?php
+                                if($key == 3){
+                                    break;
+                                }
+
+                                //debug($team);exit;
+
+                                if($game->score_thuis == 0 AND $game->score_uit == 0){
+                                    continue;
+                                }
+                                $i = "W";
+                                $home = "Thuis";
+                                $vs = $game->uit_ploeg;
+
+                                if($team->nbb_id != $game->thuis_ploeg_id){
+                                    $home = "Uit";
+                                    $vs = $game->thuis_ploeg;
+
+                                    if($game->score_uit < $game->score_thuis){
+                                        $i= "L";
+                                    }
+                                }else{
+                                    if($game->score_thuis < $game->score_uit){
+                                        $i= "L";
+                                    }
+                                }
+
+                            ?>
+
                             <!-- Game 1 -->
                             <li class="widget-results__item">
-                                <h5 class="widget-results__title">Saturday, March 24</h5>
+                                <h5 class="widget-results__title"><?= date("Y-m-d", strtotime($game->datum))?></h5>
                                 <div class="widget-results__content">
                                     <div class="widget-results__team widget-results__team--first">
 
                                         <div class="widget-results__team-details">
-                                            <h5 class="widget-results__team-name">Alchemists</h5>
-                                            <span class="widget-results__team-info">Elric Bros School</span>
+                                            <h5 class="widget-results__team-name"><?= $game->thuis_ploeg ?></h5>
                                         </div>
                                     </div>
                                     <div class="widget-results__result">
                                         <div class="widget-results__score">
-                                            <span class="widget-results__score-winner">107</span> - <span class="widget-results__score-loser">102</span>
-                                            <div class="widget-results__status">Home</div>
+                                            <span class="team-result__game"><?= $i?></span> <?= $game->score_thuis?>-<?= $game->score_uit?>
+                                            <div class="widget-results__status"><?= $home ?></div>
                                         </div>
                                     </div>
                                     <div class="widget-results__team widget-results__team--second">
 
                                         <div class="widget-results__team-details">
-                                            <h5 class="widget-results__team-name">Sharks</h5>
-                                            <span class="widget-results__team-info">Marine College</span>
+                                            <h5 class="widget-results__team-name"><?= $game->uit_ploeg ?></h5>
                                         </div>
                                     </div>
                                 </div>
                             </li>
                             <!-- Game 1 / End -->
 
-                            <!-- Game 2 -->
-                            <li class="widget-results__item">
-                                <h5 class="widget-results__title">Friday, March 16</h5>
-                                <div class="widget-results__content">
-                                    <div class="widget-results__team widget-results__team--first">
-
-                                        <div class="widget-results__team-details">
-                                            <h5 class="widget-results__team-name">L.A. Pirates</h5>
-                                            <span class="widget-results__team-info">Bebop Institute</span>
-                                        </div>
-                                    </div>
-                                    <div class="widget-results__result">
-                                        <div class="widget-results__score">
-                                            <span class="widget-results__score-winner">124</span> - <span class="widget-results__score-loser">106</span>
-                                            <div class="widget-results__status">Away</div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-results__team widget-results__team--second">
-
-                                        <div class="widget-results__team-details">
-                                            <h5 class="widget-results__team-name">Alchemists</h5>
-                                            <span class="widget-results__team-info">Eric Bros School</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- Game 2 / End -->
-
-                            <!-- Game 3 -->
-                            <li class="widget-results__item">
-                                <h5 class="widget-results__title">Saturday, March 10</h5>
-                                <div class="widget-results__content">
-                                    <div class="widget-results__team widget-results__team--first">
-
-                                        <div class="widget-results__team-details">
-                                            <h5 class="widget-results__team-name">Alchemists</h5>
-                                            <span class="widget-results__team-info">Eric Bros School</span>
-                                        </div>
-                                    </div>
-                                    <div class="widget-results__result">
-                                        <div class="widget-results__score">
-                                            <span class="widget-results__score-loser">95</span> - <span class="widget-results__score-winner">98</span>
-                                            <div class="widget-results__status">Home</div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-results__team widget-results__team--second">
-
-                                        <div class="widget-results__team-details">
-                                            <h5 class="widget-results__team-name">Clovers</h5>
-                                            <span class="widget-results__team-info">St. Patrick’s Inst</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- Game 3 / End -->
-
-                            <!-- Game 4 -->
-                            <li class="widget-results__item">
-                                <h5 class="widget-results__title">Friday, March 4</h5>
-                                <div class="widget-results__content">
-                                    <div class="widget-results__team widget-results__team--first">
-
-                                        <div class="widget-results__team-details">
-                                            <h5 class="widget-results__team-name">Ocean Kings</h5>
-                                            <span class="widget-results__team-info">Bay College</span>
-                                        </div>
-                                    </div>
-                                    <div class="widget-results__result">
-                                        <div class="widget-results__score">
-                                            <span class="widget-results__score-winner">110</span> - <span class="widget-results__score-loser">104</span>
-                                            <div class="widget-results__status">Home</div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-results__team widget-results__team--second">
-
-                                        <div class="widget-results__team-details">
-                                            <h5 class="widget-results__team-name">Alchemists</h5>
-                                            <span class="widget-results__team-info">Eric Bros School</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- Game 4 / End -->
+                            <?php }?>
 
                         </ul>
                     </div>
