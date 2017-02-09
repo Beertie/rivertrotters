@@ -86,7 +86,7 @@
                         <a href="<?php echo $this->Url->build(['controller' => 'players', 'action' => 'index']); ?>"><i class="fa fa-mobile-phone fa-fw"></i><span><?php echo __('Players'); ?></span></a>
                     </li>
                     <li class="News">
-                        <a href="<?php echo $this->Url->build(['controller' => 'players', 'action' => 'index']); ?>"><i class="fa fa-mobile-phone fa-fw"></i><span><?php echo __('News'); ?></span></a>
+                        <a href="<?php echo $this->Url->build(['controller' => 'news', 'action' => 'index']); ?>"><i class="fa fa-newspaper-o fa-fw"></i><span><?php echo __('News'); ?></span></a>
                     </li>
                 </ul>
 
