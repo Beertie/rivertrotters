@@ -44,7 +44,7 @@
     <div class="container">
         <a href="#" class="content-filter__toggle"></a>
         <ul class="content-filter__list">
-            <li class="content-filter__item content-filter__item--active"><a href="team-overview.html" class="content-filter__link"><small>Team</small>Overview</a></li>
+            <li class="content-filter__item content-filter__item--active"><a href="#" class="content-filter__link"><small>Team</small>Overview</a></li>
             <li class="content-filter__item "><a href="/teams/roster/<?= $team->id?>" class="content-filter__link"><small>Team</small>Spelers</a></li>
             <li class="content-filter__item "><a href="/teams/standing/<?= $team->id?>" class="content-filter__link"><small>Team</small>Stand</a></li>
             <li class="content-filter__item "><a href="/teams/results/<?= $team->id?>" class="content-filter__link"><small>Team</small>Uitslagen</a></li>
@@ -106,7 +106,7 @@
                 <div class="card card--has-table">
                     <div class="card__header card__header--has-btn">
                         <h4>Games Schedule</h4>
-                        <a href="team-schedule.html" class="btn btn-default btn-outline btn-xs card-header__button">See Complete Schedule</a>
+                        <a href="/teams/schedule/<?= $team->id?>" class="btn btn-default btn-outline btn-xs card-header__button">See Complete Schedule</a>
                     </div>
                     <div class="card__content">
                         <div class="table-responsive">
@@ -115,29 +115,44 @@
                                 <tr>
                                     <th class="team-schedule__date">Date</th>
                                     <th class="team-schedule__versus">Versus</th>
+                                    <th class="team-schedule__status">Status</th>
                                     <th class="team-schedule__time">Time</th>
                                     <th class="team-schedule__venue">Venue</th>
                                     <th class="team-schedule__tickets">Tickets</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="team-schedule__date">Saturday, Mar 24</td>
-                                    <td class="team-schedule__versus">
-                                        <div class="team-meta">
-                                            <figure class="team-meta__logo">
-                                                <img src="assets/images/samples/logos/lucky_clovers_shield.png" alt="">
-                                            </figure>
-                                            <div class="team-meta__info">
-                                                <h6 class="team-meta__name">Lucky Clovers</h6>
-                                                <span class="team-meta__place">St. Patrick’s Institute</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="team-schedule__time">9:00PM EST</td>
-                                    <td class="team-schedule__venue">Madison Cube Stadium</td>
-                                    <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
-                                </tr>
+                                <?php foreach ($schedule as $key => $game){?>
+
+                                    <?php
+                                    if($key == 3){
+                                        break;
+                                    }
+                                    //debug($game);
+                                    //exit;
+
+
+
+                                    $home = "Thuis";
+                                    $vs = $game->uit_ploeg;
+                                    if($team->nbb_id != $game->thuis_ploeg_id){
+                                    $home = "Uit";
+                                    $vs = $game->thuis_ploeg;
+
+                                    }
+                                    ?>
+
+
+                                    <tr>
+                                        <td class="team-schedule__date"><?= date("Y-m-d", strtotime($game->datum))?></td>
+                                        <td class="team-schedule__versus"><?= $vs?></td>
+                                        <td class="team-schedule__status"><?= $home?></td>
+                                        <td class="team-schedule__time"><?= date("H:i", strtotime($game->datum))?></td>
+                                        <td class="team-schedule__venue"><?= $game->loc_naam?></td>
+                                        <td class="team-schedule__tickets"><a href="#" class="btn btn-xs btn-default btn-outline btn-block">Buy Game Tickets</a></td>
+                                    </tr>
+
+                                <?php }?>
                                 </tbody>
                             </table>
                         </div>

@@ -16,12 +16,16 @@ class TeamsController extends AppController
 
         $team = $this->Teams->get($id);
 
+        //Select comp
         $comp_id = $team->comp_id_1;
         if($team->comp_id_2 != null){
             $comp_id = $team->comp_id_2;
         }
 
+        //Get the NBB lib
         $nbb = new Nbb();
+
+        $schedule = $nbb->getSchedule($comp_id, $team->nbb_id);
 
         $stand = $nbb->getScore($comp_id);
 
@@ -38,7 +42,6 @@ class TeamsController extends AppController
                     $i++;
                     $score_home[] = $score;
                 }
-
             }
 
             if($value->uit_club_id == 81){
@@ -47,12 +50,11 @@ class TeamsController extends AppController
                     $i++;
                     $score_home[] = $score;
                 }
-
             }
 
         }
 
-        $this->set(compact('team', 'competition', 'stand', 'score_home'));
+        $this->set(compact('team', 'competition', 'stand', 'score_home', 'schedule'));
         $this->set('_serialize', ['team']);
 
     }
