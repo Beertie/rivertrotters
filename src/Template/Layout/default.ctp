@@ -74,7 +74,7 @@
     <!-- Header Mobile -->
     <div class="header-mobile clearfix" id="header-mobile">
         <div class="header-mobile__logo">
-            <a href="index.html"><img src="/images/logo.png" alt="Rivertrotters" class="header-mobile__logo-img"></a>
+            <a href="/"><img src="/images/logo.png" alt="Rivertrotters" class="header-mobile__logo-img"></a>
         </div>
         <div class="header-mobile__inner">
             <a id="header-mobile__toggle" class="burger-menu-icon"><span class="burger-menu-icon__line"></span></a>
@@ -137,7 +137,7 @@
                 <div class="header__primary-inner">
                     <!-- Header Logo -->
                     <div class="header-logo">
-                        <a href="index.html"><img src="/images/logo.png" alt="Rivertrotters" class="header-logo__img"></a>
+                        <a href="/"><img src="/images/logo.png" alt="Rivertrotters" class="header-logo__img"></a>
                     </div>
                     <!-- Header Logo / End -->
 
