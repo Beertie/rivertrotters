@@ -144,7 +144,66 @@ class Nbb{
     public function getStatsForComp(){
 
 
+    }
 
+    public function getNameComp($comp_id){
+        $url = "http://db.basketball.nl/db/json/stand.pl?cmp_ID=".$comp_id;
+        $comp = file_get_contents($url);
+        $comp = json_decode($comp);
+        return $comp->naam;
+    }
+
+
+    public function getResultByClub(){
+
+        $url = "http://db.basketball.nl/db/json/wedstrijd.pl?clb_ID=".$this->club_id;
+        $results = file_get_contents($url);
+        $results = json_decode($results);
+
+        //debug($results);exit;
+
+        $games = [];
+        foreach ($results->wedstrijden as $game){
+            if($game->score_thuis != 0 AND $game->score_uit != 0){
+
+                $winner_home = 'winner';
+                $winner_away = 'loser';
+                if($game->score_thuis < $game->score_uit){
+                    $winner_home = 'loser';
+                    $winner_away = 'winner';
+                }
+
+                if($game->score_thuis == $game->score_uit){
+                    $winner_home = 'winner';
+                    $winner_away = 'winner';
+                }
+
+
+                $games[] = [
+                    "name" => "Comp name",
+                    "home_team" => $game->thuis_ploeg ,
+                    "home_score" => $game->score_thuis,
+                    "home_team_id" => $game->thuis_ploeg_id,
+                    "home_club_id" => $game->thuis_club_id,
+                    "away_team" => $game->uit_ploeg ,
+                    "away_score" => $game->score_uit,
+                    "away_team_id" => $game->uit_ploeg_id,
+                    "away_club_id" => $game->uit_club_id,
+                    "location" => $game->loc_plaats,
+                    "place" => $game->loc_naam,
+                    "date" => $game->datum,
+                    "home_winner" => $winner_home,
+                    "away_winner" => $winner_away,
+                    ];
+            }
+
+
+
+        }
+
+        //debug($games);exit;
+
+        return array_reverse($games);
     }
 
     public function getResultsByTeam($team_id){

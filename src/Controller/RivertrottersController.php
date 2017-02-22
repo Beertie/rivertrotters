@@ -49,6 +49,11 @@ class RivertrottersController extends AppController
 
     public function results(){
 
+        $nbb = new Nbb();
+
+        $results = $nbb->getResultByClub();
+        $this->set(compact('results'));
+
     }
 
     public function teams(){
