@@ -40,8 +40,8 @@ class PlayersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('TeamsHasPlayers', [
-            'foreignKey' => 'player_id'
+        $this->belongsToMany('Teams', [
+            'through' => 'TeamsHasPlayers'
         ]);
     }
 

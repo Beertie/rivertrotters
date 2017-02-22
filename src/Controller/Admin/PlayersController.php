@@ -7,10 +7,18 @@ use App\Controller\AppController;
  * Players Controller
  *
  * @property \App\Model\Table\PlayersTable $Players
+ * @property \App\Model\Table\TeamsTable $Teams
  */
 class PlayersController extends AppController
 {
 
+    public function initialize()
+    {
+        // Load models
+        $this->loadModel('Teams');
+
+        parent::initialize();
+    }
     /**
      * Index method
      *
@@ -34,7 +42,7 @@ class PlayersController extends AppController
     public function view($id = null)
     {
         $player = $this->Players->get($id, [
-            'contain' => ['TeamsHasPlayers']
+            'contain' => ['Teams']
         ]);
 
         $this->set('player', $player);
@@ -59,7 +67,10 @@ class PlayersController extends AppController
                 $this->Flash->error(__('The player could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('player'));
+
+        $teams = $this->Teams->find('list', ['limit' => 200]);
+
+        $this->set(compact('player', 'teams'));
         $this->set('_serialize', ['player']);
     }
 
@@ -77,6 +88,8 @@ class PlayersController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $player = $this->Players->patchEntity($player, $this->request->data);
+
+            debug($player);exit;
             if ($this->Players->save($player)) {
                 $this->Flash->success(__('The player has been saved.'));
 
@@ -85,7 +98,9 @@ class PlayersController extends AppController
                 $this->Flash->error(__('The player could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('player'));
+        $teams = $this->Teams->find('list', ['limit' => 200]);
+
+        $this->set(compact('player', 'teams'));
         $this->set('_serialize', ['player']);
     }
 

@@ -12,6 +12,7 @@ use Ghunti\HighchartsPHP\Highchart;
  */
 class TeamsController extends AppController
 {
+
     public function index($id){
 
         $team = $this->Teams->get($id);

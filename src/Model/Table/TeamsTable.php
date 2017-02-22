@@ -42,15 +42,14 @@ class TeamsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Nbbs', [
-            'foreignKey' => 'nbb_id'
-        ]);
         $this->belongsTo('TeamMenus', [
             'foreignKey' => 'team_menu_id'
         ]);
-        $this->hasMany('TeamsHasPlayers', [
-            'foreignKey' => 'team_id'
+
+        $this->belongsToMany('Players', [
+            'through' => 'TeamsHasPlayers'
         ]);
+
     }
 
     /**

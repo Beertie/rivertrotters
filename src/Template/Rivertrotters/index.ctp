@@ -190,49 +190,67 @@
         </div>
         <div class="widget__content card__content">
             <div class="table-responsive">
-                <table class="table table-hover table-standings">
-                    <tbody>
+
+                <?php
+                foreach ($home_games_this_weekend as $game){?>
+
 
                     <?php
-                    foreach ($home_games_this_weekend as $game){?>
-                    <tr>
-                        <td>
-                            <div class="col-md-12 home-game">
 
-                                <div class="col-md-4 text-center">
-                                    <?php
-                                    echo "Rivertrotters";
-                                    echo str_replace("River Trotters", "",$game->thuis_ploeg);
-                                    if($game->score_uit != 0 AND $game->score_thuis != 0){
-                                        echo "<h1><b>".$game->score_thuis."</b></h1>";
-                                    }
+                    $dayofweek = date('w', strtotime($game->datum));
+                    $day = "Vrijdag";
 
-                                    ?>
-                                </div>
+                    ?>
 
 
-                                <div class="col-md-4 text-center">
-                                    <h4><b><?php echo date("H:i", strtotime($game->datum));?></b></h4>
+                <li class="widget-results__item">
 
-                                    <b><?php echo date("Y-m-d", strtotime($game->datum));?></b>
-                                </div>
+                    <?php
+                    if($dayofweek){
+                        echo ' <h5 class="widget-results__title"><b>'.$dayofweek.'</b></h5>';
+                    }
+                    ?>
 
 
-                                <div class="col-md-4 text-center">
-                                    <?php
-                                    echo $game->uit_ploeg;
-                                    if($game->score_uit != 0 AND $game->score_thuis != 0){
-                                        echo "<h1><b>".$game->score_uit."</b></h1>";
-                                    }
+                    <div class="widget-results__content">
+                        <div class="col-md-12 home-game">
 
-                                    ?>
-                                </div>
-                            </div></td>
+                            <div class="col-md-4 text-center">
+                                <?php
+                                echo "Rivertrotters";
+                                echo str_replace("River Trotters", "",$game->thuis_ploeg);
+                                if($game->score_uit != 0 AND $game->score_thuis != 0){
+                                    echo "<h1><b>".$game->score_thuis."</b></h1>";
+                                }
 
-                    </tr>
-                    <?php }?>
-                    </tbody>
-                </table>
+                                ?>
+                            </div>
+
+
+                            <div class="col-md-4 text-center">
+
+                                <b><?php echo date("d-m-Y", strtotime($game->datum));?></b>
+
+                                <h4><b><?php echo date("H:i", strtotime($game->datum));?></b></h4>
+
+                            </div>
+
+
+                            <div class="col-md-4 text-center">
+                                <?php
+                                echo $game->uit_ploeg;
+                                if($game->score_uit != 0 AND $game->score_thuis != 0){
+                                    echo "<h1><b>".$game->score_uit."</b></h1>";
+                                }
+
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <?php }?>
+
             </div>
         </div>
     </aside>

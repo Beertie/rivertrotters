@@ -38,12 +38,8 @@
     <?= $this->Html->script('/js/lightbox.js', ['block' => 'scriptBottom']) ?>
     <?= $this->Html->script('/js/js.cookie.js', ['block' => 'scriptBottom']) ?>
     <?= $this->Html->script('/js/bootstrap.min.js', ['block' => 'scriptBottom']) ?>
-
     <?= $this->Html->script('/js/plugins/summernote.min.js', ['block' => 'scriptBottom']) ?>
-
-
     <?= $this->Html->script('/js/dropzone.js', ['block' => 'scriptBottom']) ?>
-
     <?= $this->Html->script('/js/bootstrap-editable.min.js', ['block' => 'scriptBottom']) ?>
     <?= $this->Html->script('/js/custom.js', ['block' => 'scriptBottom']) ?>
     <?= $this->Html->script('/js/comments.js', ['block' => 'scriptBottom']) ?>
@@ -55,8 +51,6 @@
     <?= $this->Html->script('/js/plugins/jquery.canvasjs.min.js', ['block' => 'scriptBottom']) ?>
 
 
-
-
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -65,8 +59,6 @@
 
 <div class="site-wrapper clearfix">
     <div class="site-overlay"></div>
-
-
 
     <!-- Header
     ================================================== -->
@@ -144,14 +136,17 @@
                     <!-- Main Navigation -->
                     <nav class="main-nav clearfix">
                         <ul class="main-nav__list">
-                            <li class="active"><a href="index.html">Home</a>
+                            <li class="active"><a href="/">Home</a>
                                 <ul class="main-nav__sub">
-                                    <li class="active"><a href="index.html">Home - version 1</a></li>
-                                    <li class=""><a href="index-2.html">Home - version 2</a></li>
-                                    <li class=""><a href="index-3.html">Home - version 3</a></li>
+                                    <li class=""><a href="/rivertrotters/games">Games</a></li>
+                                    <li class=""><a href="/rivertrotters/tasks">Taken</a></li>
+                                    <li class=""><a href="/rivertrotters/results">Uitslagen</a></li>
+                                    <li class=""><a href="/rivertrotters/teams">Teams</a></li>
                                 </ul>
                             </li>
-                            <li class=""><a href="#">Features</a>
+
+
+                            <li class=""><a href="#">Info</a>
                                 <div class="main-nav__megamenu clearfix">
                                     <ul class="col-lg-2 col-md-3 col-xs-12 main-nav__ul">
                                         <li class="main-nav__title">Features</li>
@@ -247,9 +242,9 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class=""><a href="#">De Teams</a>
 
 
+                            <li class=""><a href="/rivertrotters/teams">De Teams</a>
 
                                 <ul class="main-nav__sub">
                                     <?php

@@ -11,7 +11,18 @@
     <fieldset>
         <legend><?= __('Add Player') ?></legend>
         <?php
-            echo $this->Form->input('name');
+            echo $this->Form->input('first_name');
+            echo $this->Form->input('last_name');
+            echo $this->Form->input('insertion');
+            echo $this->Form->input('location');
+            echo $this->Form->input('phone_1');
+            echo $this->Form->input('phone_2');
+            echo $this->Form->input('date_of_birth');
+            echo $this->Form->input('membership');
+            echo $this->Form->input('diploma');
+            echo $this->Form->input('email');
+            echo $this->Form->input('status');
+            echo $this->Form->input('member_since');
             echo $this->Form->input('number');
         ?>
     </fieldset>
