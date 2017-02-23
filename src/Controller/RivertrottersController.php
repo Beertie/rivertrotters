@@ -41,9 +41,14 @@ class RivertrottersController extends AppController
 
         }
 
+
+        $GameOfTheWeek = $nbb->getGameOfTheWeek();
+
+        //debug($GameOfTheWeek);
+
         //exit;
 
-        $this->set(compact('home_games_this_weekend'));
+        $this->set(compact('home_games_this_weekend', 'GameOfTheWeek'));
         $this->set('_serialize', ['games', 'filter', 'options']);
     }
 
@@ -72,6 +77,10 @@ class RivertrottersController extends AppController
         $teams = $this->Teams->find();
 
         $this->set(compact('teams'));
+
+    }
+
+    public function HistoryTeams(){
 
     }
 

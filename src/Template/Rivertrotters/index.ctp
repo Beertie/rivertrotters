@@ -275,8 +275,10 @@
     </aside>
 
     <aside class="widget widget--sidebar card widget-preview">
+
+
         <div class="widget__title card__header">
-            <h4>Top Next Match</h4>
+            <h4>Game of the week</h4>
         </div>
         <div class="widget__content card__content">
 
@@ -284,36 +286,28 @@
             <div class="match-preview">
                 <section class="match-preview__body">
                     <header class="match-preview__header">
-                        <h3 class="match-preview__title">Heren 1 thuis game</h3>
-                        <time class="match-preview__date" datetime="2017-04-17">04-02-2017</time>
+                        <h3 class="match-preview__title"><?= $GameOfTheWeek['comp_name']?></h3>
+                        <time class="match-preview__date" datetime="2017-04-17"><?= date("Y-m-d H:i", strtotime($GameOfTheWeek['date']))?></time>
                     </header>
                     <div class="match-preview__content">
 
                         <!-- 1st Team -->
                         <div class="match-preview__team match-preview__team--first">
-                            <figure class="match-preview__team-logo">
-                                <img src="/images/logo.png" alt="">
-                            </figure>
-                            <h5 class="match-preview__team-name">Rivertrotters</h5>
-                            <div class="match-preview__team-info">Heren 1</div>
+                            <h5 class="match-preview__team-name"><?= $GameOfTheWeek['home_team_name']?></h5>
                         </div>
                         <!-- 1st Team / End -->
 
                         <div class="match-preview__vs">
                             <div class="match-preview__conj">VS</div>
                             <div class="match-preview__match-info">
-                                <time class="match-preview__match-time" datetime="2017-05-17 19:30">19:30</time>
-                                <div class="match-preview__match-place">Wielenwaal</div>
+                                <div class="match-preview__match-place"><?= $GameOfTheWeek['location']?></div>
+                                <div class="match-preview__match-place"><?= $GameOfTheWeek['place']?></div>
                             </div>
                         </div>
 
                         <!-- 2nd Team -->
                         <div class="match-preview__team match-preview__team--second">
-                            <figure class="match-preview__team-logo">
-                                <img src="assets/images/samples/logo-l-clovers--sm.png" alt="">
-                            </figure>
-                            <h5 class="match-preview__team-name">HBV The Jumpers</h5>
-                            <div class="match-preview__team-info">Heren 1</div>
+                            <h5 class="match-preview__team-name"><?= $GameOfTheWeek['away_team_name']?></h5>
                         </div>
                         <!-- 2nd Team / End -->
 
@@ -325,7 +319,7 @@
                 <section class="match-preview__countdown countdown">
                     <h4 class="countdown__title">Game Countdown</h4>
                     <div class="countdown__content">
-                        <div class="countdown-counter" data-date="02-04-2017 19:30:00"></div>
+                        <div class="countdown-counter" data-date="<?= date("Y-m-d H:i", strtotime($GameOfTheWeek['date']))?>"></div>
                     </div>
                 </section>
             </div>

@@ -67,31 +67,6 @@
 
                             }
 
-
-/*
- * object(stdClass) {
-	loc_id => '22'
-	lat => '51.8253351'
-	thuis_club_id => '81'
-	cmp_id => '428'
-	uit_ploeg_id => '2867'
-	id => '733365'
-	nr => 'FA'
-	loc_naam => 'De Wielewaal'
-	cmp_nr => 'LHS1DB'
-	score_uit => '0'
-	loc_plaats => 'Hardinxveld-G'
-	stats => '0'
-	score_thuis => '0'
-	org_id => '1'
-	thuis_ploeg_id => '714'
-	uit_club_id => '279'
-	thuis_ploeg => 'River Trotters HS 1'
-	uit_ploeg => 'TSBV Pendragon HS 1'
-	lon => '4.8361204'
-	datum => '2017-03-04 20:30:00.000'
-}
- */
                             ?>
 
 

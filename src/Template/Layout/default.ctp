@@ -142,6 +142,10 @@
                                     <li class=""><a href="/rivertrotters/tasks">Taken</a></li>
                                     <li class=""><a href="/rivertrotters/results">Uitslagen</a></li>
                                     <li class=""><a href="/rivertrotters/teams">Teams</a></li>
+                                    <li class=""><a href="/rivertrotters/HistoryTeams">History teams</a></li>
+                                    <li class=""><a href="/">Agenda</a></li>
+                                    <li class=""><a href="/">Coaches en Trainers</a></li>
+                                    <li class=""><a href="/">Contact</a></li>
                                 </ul>
                             </li>
 
@@ -149,25 +153,31 @@
                             <li class=""><a href="#">Info</a>
                                 <div class="main-nav__megamenu clearfix">
                                     <ul class="col-lg-2 col-md-3 col-xs-12 main-nav__ul">
-                                        <li class="main-nav__title">Features</li>
-                                        <li><a href="features-shortcodes.html">Shortcodes</a></li>
-                                        <li><a href="features-typography.html">Typography</a></li>
-                                        <li><a href="features-widgets-blog.html">Widgets - Blog</a></li>
-                                        <li><a href="features-widgets-shop.html">Widgets - Shop</a></li>
-                                        <li><a href="features-widgets-sports.html">Widgets - Sports</a></li>
-                                        <li><a href="features-404.html">404 Error Page</a></li>
+                                        <li class="main-nav__title">Informatie</li>
+                                        <li><a href="/">Over River Trotters</a></li>
+                                        <li><a href="/">Bestuur</a></li>
+                                        <li><a href="/">Veilig sportklimaat</a></li>
+                                        <li><a href="/">VOG-verklaring</a></li>
+                                        <li><a href="/">Vertrouwenspersoon</a></li>
+                                        <li><a href="/">Technische Commissie</a></li>
+                                        <li><a href="/">Wedstrijdsecretaris en Taken</a></li>
+                                        <li><a href="/">Bijzondere Leden</a></li>
+                                        <li><a href="/">30-jarig bestaan</a></li>
+                                        <li><a href="/">Historie Website</a></li>
                                     </ul>
+
                                     <ul class="col-lg-2 col-md-3 col-xs-12 main-nav__ul">
-                                        <li class="main-nav__title">Main Features</li>
-                                        <li><a href="team-overview.html">Team Overview</a></li>
-                                        <li><a href="team-roster-2.html">Team Roster</a></li>
-                                        <li><a href="player-stats.html">Player Stats</a></li>
-                                        <li><a href="shop-list.html">Shop Page V1</a></li>
-                                        <li><a href="shop-grid.html">Shop Page V2</a></li>
-                                        <li><a href="shop-cart.html">Shopping Cart</a></li>
-                                        <li><a href="shop-wishlist.html">Wishlist</a></li>
-                                        <li><a href="shop-checkout.html">Checkout</a></li>
+                                        <li class="main-nav__title">Features</li>
+                                        <li><a href="/">Trainingsschema</a></li>
+                                        <li><a href="/">Wedstrijdenplanning</a></li>
+                                        <li><a href="/">Takenplanning</a></li>
+                                        <li><a href="/">Tafelen</a></li>
+                                        <li><a href="/">Routebeschrijvingen</a></li>
+                                        <li><a href="/">Programma 2 weken</a></li>
+                                        <li><a href="/">Programma volledig</a></li>
+                                        <li><a href="/">Uitslagen 2 weken</a></li>
                                     </ul>
+
                                     <div class="col-lg-4 col-md-3 col-xs-12">
 
                                         <div class="posts posts--simple-list posts--simple-list--lg">

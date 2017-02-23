@@ -43,4 +43,12 @@ class TestShell extends Shell
         debug($teams);
 
     }
+
+    public function game(){
+
+        $nbb = new Nbb();
+
+        $game = $nbb->getGameOfTheWeek();
+
+    }
 }

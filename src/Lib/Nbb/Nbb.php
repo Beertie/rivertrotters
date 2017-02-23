@@ -431,4 +431,78 @@ class Nbb{
         return $week;
     }
 
+    public function getGameOfTheWeek(){
+
+        $url = "http://db.basketball.nl/db/json/wedstrijd.pl?clb_ID=".$this->club_id;
+
+        $games = json_decode(file_get_contents($url));
+
+        $return_games = [];
+
+        $weekNo = date('W');
+
+        foreach ($games->wedstrijden as $game){
+
+            if($game->score_thuis == 0 AND $game->score_uit == 0){
+
+                if(date('W', strtotime($game->datum)) == $weekNo){
+
+
+                    if($game->thuis_club_id == $this->club_id){
+                        $return_games['thuis'][] = $game;
+                    }else{
+                        $return_games['uit'][] = $game;
+                    }
+                }
+
+            }
+        }
+
+
+        //TODO select good game
+        if(!empty($return_games['thuis'])){
+            $teams_name = $this->getFullTeamNameByComp($return_games['thuis'][0]->cmp_id);
+
+            //getFullTeamNameByComp
+            $team = [
+                "home_team" => $return_games['thuis'][0]->thuis_ploeg ,
+                "home_team_name" => wordwrap($teams_name[$return_games['thuis'][0]->thuis_ploeg_id], 8, "<br />", false),
+                "away_team" => $return_games['thuis'][0]->uit_ploeg ,
+                "away_team_name" => wordwrap($teams_name[$return_games['thuis'][0]->uit_ploeg_id], 8, "<br />", false),
+                "location" => $return_games['thuis'][0]->loc_plaats,
+                "place" => $return_games['thuis'][0]->loc_naam,
+                "date" => $return_games['thuis'][0]->datum,
+                "comp_name" => $teams_name['comp_name'],
+            ];
+
+
+            //Select home game
+            return $team;
+        }
+
+        if(!empty($return_games['uit'])){
+
+            $teams_name = $this->getFullTeamNameByComp($return_games['uit'][0]->cmp_id);
+
+            //getFullTeamNameByComp
+            $team = [
+                "home_team" => $return_games['uit'][0]->thuis_ploeg ,
+                "home_team_name" => wordwrap($teams_name[$return_games['uit'][0]->thuis_ploeg_id], 8, "<br />", false),
+                "away_team" => $return_games['uit'][0]->uit_ploeg ,
+                "away_team_name" => wordwrap($teams_name[$return_games['uit'][0]->uit_ploeg_id], 8, "<br />", false),
+                "location" => $return_games['uit'][0]->loc_plaats,
+                "place" => $return_games['uit'][0]->loc_naam,
+                "date" => $return_games['uit'][0]->datum,
+                "comp_name" => $teams_name['comp_name'],
+            ];
+
+
+            //Select home game
+            return $team;
+        }
+
+        return false;
+
+    }
+
 }
