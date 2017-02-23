@@ -1,6 +1,7 @@
 <?php
 namespace App\Shell;
 
+use App\Lib\Nbb\Nbb;
 use Cake\Console\Shell;
 
 /**
@@ -31,5 +32,15 @@ class TestShell extends Shell
     public function main() 
     {
         $this->out($this->OptionParser->help());
+    }
+
+    public function name(){
+
+        $nbb = new Nbb();
+
+        $teams = $nbb->getFullTeamNameByComp(847);
+
+        debug($teams);
+
     }
 }

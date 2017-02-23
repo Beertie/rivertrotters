@@ -2,6 +2,8 @@
 
 namespace App\Lib\Nbb;
 
+use Cake\Cache\Cache;
+
 class Nbb{
 
     //Club id fo use for one club
@@ -122,43 +124,47 @@ class Nbb{
         if($year != false){
             $url .= "&&seizoen=".$year."-".($year + 1);
         }
-        //debug($url);
-
 
         $comp = file_get_contents($url);
         $comp = json_decode($comp);
-
-        //debug($comp);
 
         return $comp;
     }
 
-    public function getLastWeek(){
-
-    }
-
-    public function getStatsForTeam(){
-
-    }
-
-    public function getStatsForComp(){
-
-
-    }
 
     public function getNameComp($comp_id){
+        //TODO remove or cache hard
+
         $url = "http://db.basketball.nl/db/json/stand.pl?cmp_ID=".$comp_id;
-        $comp = file_get_contents($url);
-        $comp = json_decode($comp);
+        $comp = json_decode(file_get_contents($url));
         return $comp->naam;
     }
 
+    public function getFullTeamNameByComp($comp_id){
+
+
+        if (($teams = Cache::read('teams_'.$comp_id)) === false) {
+
+            $url = "http://db.basketball.nl/db/json/stand.pl?cmp_ID=" . $comp_id;
+
+            $comp = json_decode(file_get_contents($url));
+
+            $teams = [];
+            $teams['comp_name'] = $comp->naam;
+
+            foreach ($comp->stand as $team) {
+                $teams[$team->ID] = str_replace("(VR)", '', $team->team);
+            }
+            Cache::write('teams_'.$comp_id, $teams);
+        }
+
+        return $teams;
+    }
 
     public function getResultByClub(){
 
         $url = "http://db.basketball.nl/db/json/wedstrijd.pl?clb_ID=".$this->club_id;
-        $results = file_get_contents($url);
-        $results = json_decode($results);
+        $results = json_decode(file_get_contents($url));
 
         //debug($results);exit;
 
@@ -178,32 +184,36 @@ class Nbb{
                     $winner_away = 'winner';
                 }
 
+                $teams_name = $this->getFullTeamNameByComp($game->cmp_id);
+
+                //debug($teams_name);
+
 
                 $games[] = [
-                    "name" => "Comp name",
                     "home_team" => $game->thuis_ploeg ,
                     "home_score" => $game->score_thuis,
                     "home_team_id" => $game->thuis_ploeg_id,
+                    "home_team_name" => wordwrap($teams_name[$game->thuis_ploeg_id], 8, "<br />", false),
                     "home_club_id" => $game->thuis_club_id,
                     "away_team" => $game->uit_ploeg ,
                     "away_score" => $game->score_uit,
                     "away_team_id" => $game->uit_ploeg_id,
+                    "away_team_name" => wordwrap($teams_name[$game->uit_ploeg_id], 8, "<br />", false),
                     "away_club_id" => $game->uit_club_id,
                     "location" => $game->loc_plaats,
                     "place" => $game->loc_naam,
                     "date" => $game->datum,
                     "home_winner" => $winner_home,
                     "away_winner" => $winner_away,
+                    "comp_name" => $teams_name['comp_name'],
                     ];
             }
-
-
-
         }
 
-        //debug($games);exit;
+        $games = array_reverse($games);
+        $games = array_slice($games, 0, 15);
 
-        return array_reverse($games);
+        return $games;
     }
 
     public function getResultsByTeam($team_id){
@@ -391,37 +401,13 @@ class Nbb{
 
     }
 
-    /**
-     *
-     *
-     * @param $comp_id
-     */
     public function getStatsComp($comp_id){
         $url = "http://db.basketball.nl/db/json/stand.pl?cmp_ID=$comp_id";
 
         $stats = file_get_contents($url);
         $stats = json_decode($stats);
 
-        /**
-         * 	(int) 0 => object(stdClass) {
-        afko => 'BV Voorne HS 1'
-        ID => '235'
-        status => 'Actief'
-        rang => '1'
-        gespeeld => '10'
-        percentage => '90.0'
-        tegenscore => '480'
-        punten => '18'
-        eigenscore => '714'
-        datum => '2016-12-21'
-        team => 'BV Voorne Heren 1'
-        saldo => (int) 234
-        positie => '1'
-        },
-         */
-
-
-       // debug($stats);
+       return $stats;
 
 
     }
@@ -442,8 +428,6 @@ class Nbb{
         $time = date("Y-m-d",time());
         $date = new \DateTime($time);
         $week = $date->format("W");
-
-        //debug($week);
         return $week;
     }
 

@@ -78,22 +78,6 @@
                 <div class="posts posts--cards post-grid post-grid--masonry row">
 
                     <?php
-                    /*
-                     *
-                     * 	(int) 0 => [
-                                'home_team' => 'Bouncers Basketball X0 3',
-                                'home_score' => '57',
-                                'home_team_id' => '12124',
-                                'home_club_id' => '45',
-                                'away_team' => 'River Trotters X0 1',
-                                'away_score' => '24',
-                                'away_team_id' => '9713',
-                                'away_club_id' => '81',
-                                'location' => 'Waddinxveen',
-                                'place' => 'De Duikelaar',
-                                'date' => '2017-02-18 14:30:00.000'
-	                        ],
-                     */
 
                     foreach ($results as $game){
 
@@ -107,7 +91,7 @@
                                     <div class="widget-game-result__section">
                                         <div class="widget-game-result__section-inner">
                                             <header class="widget-game-result__header">
-                                                <h3 class="widget-game-result__title"><?= $game['name']?></h3>
+                                                <div class="widget-game-result__score-label"><?= $game['comp_name']?></div>
                                                 <time class="widget-game-result__date" datetime="2016-03-24"><?= date("Y-m-d H:i", strtotime($game['date']))?></time>
                                             </header>
 
@@ -116,7 +100,7 @@
                                                 <div class="widget-game-result__team widget-game-result__team--first">
 
                                                     <div class="widget-game-result__team-info">
-                                                        <h5 class="widget-game-result__team-name"><?= $game['home_team']?></h5>
+                                                        <h5 class="widget-game-result__team-name"><?= $game['home_team_name']?></h5>
                                                     </div>
                                                 </div>
                                                 <!-- 1st Team / End -->
@@ -127,13 +111,14 @@
                                                         <span class="widget-game-result__score-dash">-</span>
                                                         <span class="widget-game-result__score-result widget-game-result__score-result--<?= $game['away_winner']?>"><?= $game['away_score']?></span>
                                                     </div>
-                                                    <div class="widget-game-result__score-label">Final Score</div>
+                                                    <div class="widget-game-result__score-label"><?= $game['place']?></div>
+                                                    <div class="widget-game-result__score-label"><?= $game['location']?></div>
                                                 </div>
 
                                                 <!-- 2nd Team -->
                                                 <div class="widget-game-result__team widget-game-result__team--second">
                                                     <div class="widget-game-result__team-info">
-                                                        <h5 class="widget-game-result__team-name"><?= $game['away_team']?></h5>
+                                                        <h5 class="widget-game-result__team-name"><?= $game['away_team_name']?></h5>
                                                     </div>
                                                 </div>
                                                 <!-- 2nd Team / End -->
