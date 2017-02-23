@@ -6,10 +6,18 @@ use App\Lib\Nbb\Nbb;
 
 /**
  * Rivertrotters Controller
- *
+ * @property \App\Model\Table\TeamsTable $Teams
  */
 class RivertrottersController extends AppController
 {
+
+    public function initialize()
+    {
+        // Load models
+        $this->loadModel('Teams');
+
+        parent::initialize();
+    }
     /**
      * Index method
      *
@@ -60,6 +68,10 @@ class RivertrottersController extends AppController
     }
 
     public function teams(){
+
+        $teams = $this->Teams->find();
+
+        $this->set(compact('teams'));
 
     }
 
