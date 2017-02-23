@@ -295,13 +295,10 @@
                         <!-- Social Links -->
                         <ul class="social-links social-links--inline social-links--main-nav">
                             <li class="social-links__item">
-                                <a href="#" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="https://www.facebook.com/rivertrotters.basketbal/?fref=ts" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
                             </li>
                             <li class="social-links__item">
-                                <a href="#" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li class="social-links__item">
-                                <a href="#" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="Google+"><i class="fa fa-google-plus"></i></a>
+                                <a href="https://twitter.com/rivertrotters" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
                             </li>
                         </ul>
                         <!-- Social Links / End -->

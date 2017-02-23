@@ -463,7 +463,6 @@ class Nbb{
         if(!empty($return_games['thuis'])){
             $teams_name = $this->getFullTeamNameByComp($return_games['thuis'][0]->cmp_id);
 
-            //getFullTeamNameByComp
             $team = [
                 "home_team" => $return_games['thuis'][0]->thuis_ploeg ,
                 "home_team_name" => wordwrap($teams_name[$return_games['thuis'][0]->thuis_ploeg_id], 8, "<br />", false),
@@ -474,7 +473,6 @@ class Nbb{
                 "date" => $return_games['thuis'][0]->datum,
                 "comp_name" => $teams_name['comp_name'],
             ];
-
 
             //Select home game
             return $team;
