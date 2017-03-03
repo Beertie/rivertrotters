@@ -299,16 +299,26 @@ class Nbb{
 
                 //Set streak;
                 //Winning team
+
+                //IF home won and streak is negative or zero
                 if($stats[$game->thuis_ploeg_id]['streak'] <= 0){
+
+                    //Reset en set to 1
                     $stats[$game->thuis_ploeg_id]['streak'] = 1;
                 }else{
+
+                    //Else add 1
                     $stats[$game->thuis_ploeg_id]['streak'] = $stats[$game->thuis_ploeg_id]['streak'] + 1;
                 }
 
                 //Losing team
                 if($stats[$game->uit_ploeg_id]['streak'] > 0){
+
+
                     $stats[$game->uit_ploeg_id]['streak'] = -1;
                 }else{
+
+
                     $stats[$game->uit_ploeg_id]['streak'] = $stats[$game->uit_ploeg_id]['streak'] - 1;
                 }
 
@@ -323,25 +333,42 @@ class Nbb{
                 $stats[$game->thuis_ploeg_id]["last"][] = "L";
                 $stats[$game->uit_ploeg_id]["last"][] = "W";
 
-                //Losing team
-                if($stats[$game->uit_ploeg_id]['streak'] > 0){
-                    $stats[$game->uit_ploeg_id]['streak'] = -1;
+
+                if($stats[$game->uit_ploeg_id]['streak'] <= 0){
+                    $stats[$game->uit_ploeg_id]['streak'] = 1;
 
                 }else{
-                    $stats[$game->uit_ploeg_id]['streak'] = $stats[$game->uit_ploeg_id]['streak'] - 1;
+                    $stats[$game->uit_ploeg_id]['streak'] = $stats[$game->uit_ploeg_id]['streak'] + 1;
                 }
 
 
-                //Winning team
-                if($stats[$game->thuis_ploeg_id]['streak'] <= 0){
-                    $stats[$game->thuis_ploeg_id]['streak'] = 1;
+                //Losing team
+                if($stats[$game->thuis_ploeg_id]['streak'] > 0){
+
+
+                    $stats[$game->thuis_ploeg_id]['streak'] = -1;
                 }else{
-                    $stats[$game->thuis_ploeg_id]['streak'] = $stats[$game->thuis_ploeg_id]['streak'] + 1;
+
+
+                    $stats[$game->thuis_ploeg_id]['streak'] = $stats[$game->thuis_ploeg_id]['streak'] - 1;
                 }
             }
 
+           /* $win= "Thuis wint";
+            if($home_win){
+                $win= "UItwint";
+            }
+
+            echo $win ."<br />";
+            echo "Thuis:".$game->thuis_ploeg_id ." " .$stats[$game->thuis_ploeg_id]['streak']."</br>";
+            echo "UIt:". $game->uit_ploeg_id ." " .$stats[$game->uit_ploeg_id]['streak']."</br>";
+            echo "<br />";*/
+
+
 
         }
+
+        //exit;
 
         foreach ($stats as $team_id => $st){
 
