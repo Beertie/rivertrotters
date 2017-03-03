@@ -240,17 +240,26 @@ class Nbb{
         //debug($url);
 
 
+
+
         $score = file_get_contents($url);
         $score = json_decode($score);
 
+
+        $ignore_team_ids = $this->getNotActiveTeams($comp_id);
+
         $stats = [];
         foreach ($score->wedstrijden as $game){
-
+            if(in_array($game->thuis_ploeg_id, $ignore_team_ids) OR in_array($game->uit_ploeg_id, $ignore_team_ids)){
+                continue;
+            }
 
             //If no score skip
             if($game->score_thuis == 0 AND $game->score_uit == 0){
                 continue;
             }
+
+
 
             $stats[$game->thuis_ploeg_id]['name'] = $game->thuis_ploeg;
             $stats[$game->uit_ploeg_id]['name'] = $game->uit_ploeg;
@@ -368,7 +377,6 @@ class Nbb{
 
         }
 
-        //exit;
 
         foreach ($stats as $team_id => $st){
 
@@ -527,6 +535,20 @@ class Nbb{
         }
 
         return false;
+
+    }
+
+    public function getNotActiveTeams($comp_id){
+
+        $comp_data = $this->getStatsComp($comp_id);
+        $team_ids = [];
+        foreach ($comp_data->stand as $team){
+            if($team->status != 'Actief'){
+                $team_ids[] = $team->ID;
+            }
+        }
+        return $team_ids;
+
 
     }
 
